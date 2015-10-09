@@ -13,13 +13,13 @@ files <- c("C:/Users/Naoto/Documents/github/BRIC-seq_data_analysis/BridgeR/data/
            "C:/Users/Naoto/Documents/github/BRIC-seq_data_analysis/BridgeR/data/siStealth_genes_RefSeq_result_mRNA.fpkm_table")
 
 ###Calc_relative_expression_function###
-BridgeRDataSetFromCuffnorm <- function(CuffnormFiles, group, hour, cutoff = 0.1, InforColumn = 4, OutputFiles = "BridgeR_1_Relative_expression_data.txt"){
+BridgeRDataSetFromCuffnorm <- function(CuffnormFiles, group, hour, cutoff = 0.1, InforColumn = 4, OutputFile = "BridgeR_1_Relative_expression_data.txt"){
     ###Import_library###
     library(data.table)
     
     ###Prepare_files###
-    time_point <- length(hour)
-    input_file_numbers <- length(files)
+    time_points <- length(hour)
+    input_file_numbers <- length(CuffnormFiles)
     input_file <- NULL
     for(filename in CuffnormFiles){
         if(is.null(input_file)){
@@ -28,11 +28,10 @@ BridgeRDataSetFromCuffnorm <- function(CuffnormFiles, group, hour, cutoff = 0.1,
             input_file <- cbind(input_file,suppressWarnings(fread(filename, header=T)))
         }
     }
-    output_file <- OutputFiles
+    output_file <- OutputFile
     
     ###print_header###
     cat("",file=output_file)
-    time_points <- length(hour)
     hour_label <- NULL
     for(a in 1:length(group)){
         if(!is.null(hour_label)){
@@ -84,9 +83,8 @@ BridgeRDataSetFromCuffnorm <- function(CuffnormFiles, group, hour, cutoff = 0.1,
         }
         cat("\n", sep="", file=output_file, append=T)
     }
-        
 }
 
 ###Test###
-BridgeRDataSetFromCuffnorm(files, group, hour)
+BridgeRDataSetFromCuffnorm(CuffnormFiles=files, group=group, hour=hour)
 
