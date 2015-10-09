@@ -12,7 +12,7 @@ group <- c("siCTRL","siStealth")
 files <- "C:/Users/Naoto/Documents/github/BRIC-seq_data_analysis/BridgeR/data/BridgeR_1_Relative_expression_data.txt"
 
 ###Estimate_normalization_factor_function###
-BridgeRStableGenesDataSet <- function(filename = "BridgeR_1_Relative_expression_data.txt", group, hour, InforColumn = 4, SelectNormFactor=T, NormFactor = "BridgeR_2_Normalizaion_factor_dataset", OutputFile = "BridgeR_3_Normalized_expression_data.txt"){
+BridgeRNormalization <- function(filename = "BridgeR_1_Relative_expression_data.txt", group, hour, InforColumn = 4, SelectNormFactor=T, NormFactor = "BridgeR_2_Normalizaion_factor_dataset", OutputFile = "BridgeR_3_Normalized_expression_data.txt"){
     ###Import_library###
     library(data.table)
     
@@ -98,4 +98,4 @@ BridgeRStableGenesDataSet <- function(filename = "BridgeR_1_Relative_expression_
 }
 
 ###Test###
-BridgeRStableGenesDataSet(group=group, hour=hour)
+BridgeRNormalization(group=group, hour=hour)
