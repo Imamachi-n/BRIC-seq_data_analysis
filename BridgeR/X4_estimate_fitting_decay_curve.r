@@ -3,7 +3,6 @@
 #ver: 1.0.0
 #Date: 2015-10-08
 
-
 ###current_directory###
 setwd("C:/Users/Naoto/Documents/github/BRIC-seq_data_analysis/BridgeR/data")
 
