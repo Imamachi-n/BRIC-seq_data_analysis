@@ -12,7 +12,7 @@ group <- c("siCTRL","siStealth")
 files <- "C:/Users/Naoto/Documents/github/BRIC-seq_data_analysis/BridgeR/data/BridgeR_1_Relative_expression_data.txt"
 
 ###Estimate_normalization_factor_function###
-BridgeRStableGenesDataSet <- function(filename, group, hour, InforColumn = 4, OutputFile = "BridgeR_2_Stable_genes_dataset"){
+BridgeRStableGenesDataSet <- function(filename = "BridgeR_1_Relative_expression_data.txt", group, hour, InforColumn = 4, OutputFile = "BridgeR_2_Stable_genes_dataset"){
     ###Import_library###
     library(data.table)
 
