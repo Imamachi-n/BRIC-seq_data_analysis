@@ -147,8 +147,8 @@ BridgeRNormalizationFactors <- function(InputFile = "BridgeR_2_Stable_genes_data
                                        alpha=1)
         p.scatter <- p.scatter + xlim(0,max(plot_data$time_data)) + ylim(1,max(plot_data$exp_data))
         p.scatter <- p.scatter + ggtitle("Stable genes distribution")
-        p.scatter <- p.scatter + xlab("Relative RPKM (Time0 = 1)")
-        p.scatter <- p.scatter + ylab("Time course")
+        p.scatter <- p.scatter + xlab("Time course")
+        p.scatter <- p.scatter + ylab("Relative RPKM (Time0 = 1)")
         plot(p.scatter)
         
         dev.off() #close_fig
