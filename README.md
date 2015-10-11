@@ -1,2 +1,2 @@
 # BRIC-seq_data_analysis
-Custom scrips for analyzing BRIC-seq data
+Custom scripts for analyzing BRIC-seq data
