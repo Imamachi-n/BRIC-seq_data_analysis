@@ -147,7 +147,7 @@ BridgeRHalfLifeDistribution <- function(filename = "BridgeR_4_half-life_calculat
     plot.new()
 }
 
-BridgeRHalfLifeDifference <- function(filename = "BridgeR_4_half-life_calculation.txt", group, hour, ComparisonFile, InforColumn = 4, OutputFig = "BridgeR_5_Half-life_difference"){
+BridgeRHalfLifeDifferenceHist <- function(filename = "BridgeR_4_half-life_calculation.txt", group, hour, ComparisonFile, InforColumn = 4, OutputFig = "BridgeR_5_Half-life_difference_Histgram"){
     #ComparisonFile: The length of vector must be 2 => c("Control","Knockdown")
     ###Import_library###
     library(data.table)
@@ -175,7 +175,7 @@ BridgeRHalfLifeDifference <- function(filename = "BridgeR_4_half-life_calculatio
     print(summary(half_1))
     print(summary(half_2))
 
-        plot_data <- data.frame(div_half)
+    plot_data <- data.frame(div_half)
 
     p.scatter <- ggplot()
     p.scatter <- p.scatter + layer(data=plot_data, 
@@ -194,8 +194,63 @@ BridgeRHalfLifeDifference <- function(filename = "BridgeR_4_half-life_calculatio
     plot.new()
 }
 
+BridgeRHalfLifeDifferenceBox <- function(filename = "BridgeR_4_half-life_calculation.txt", group, hour, ComparisonFile, InforColumn = 4, OutputFig = "BridgeR_5_Half-life_difference_Boxplot"){
+    #ComparisonFile: The length of vector must be 2 => c("Control","Knockdown")
+    ###Import_library###
+    library(data.table)
+    library(ggplot2)
+    
+    ###Prepare_file_infor###
+    time_points <- length(hour)
+    group_number <- length(group)
+    comp_file_number <- NULL
+    for(a in 1:length(ComparisonFile)){
+        comp_file_number <- append(comp_file_number, which(group == ComparisonFile[a]))
+    }
+    
+    input_file <- fread(filename, header=T)
+    figfile <- paste(OutputFig,"_",group[comp_file_number[1]],"_vs_",group[comp_file_number[2]],".png", sep="")
+    fig_width <- 200*length(ComparisonFile)
+    png(filename=figfile,width = fig_width, height = 1200)
+    
+    ###Plot_Half-life_comparison###
+    half_life_column_1 <- comp_file_number[1]*(time_points + InforColumn + 8) #number
+    half_1 <- input_file[[half_life_column_1]]
+    half_1 <- half_1[!is.na(half_1)]
+    half_1_number <- length(half_1)
+    half_1_label <- rep(ComparisonFile[1],half_1_number)
+    plot_data_1 <- data.frame(half_1,half_1_label)
+    colnames(plot_data_1) <- c("half_data","label")
+    
+    half_life_column_2 <- comp_file_number[2]*(time_points + InforColumn + 8) #number
+    half_2 <- input_file[[half_life_column_2]]
+    half_2 <- half_2[!is.na(half_2)]
+    half_2_number <- length(half_2)
+    half_2_label <- rep(ComparisonFile[2],half_2_number)
+    plot_data_2 <- data.frame(half_2,half_2_label)
+    colnames(plot_data_2) <- c("half_data","label")
+    
+    print(summary(half_1))
+    print(summary(half_2))
+    
+    plot_data <- rbind(plot_data_1,plot_data_2)
+
+    p.boxplot <- ggplot()
+    p.boxplot <- p.boxplot + layer(data=plot_data, 
+                                   mapping=aes(x=label, y=half_data), 
+                                   geom="boxplot")
+    p.boxplot <- p.boxplot + ylim(0,24)
+    p.boxplot <- p.boxplot + ggtitle("Half-life difference")
+    p.boxplot <- p.boxplot + ylab("Half-life")
+    plot(p.boxplot)
+    
+    dev.off() #close_fig
+    plot.new()
+}
 
 ###Test###
 BridgeRHalfLifeComparison(group=group, hour=hour, ComparisonFile=group)
 BridgeRHalfLifeDistribution(group=group, hour=hour, ComparisonFile=group)
-BridgeRHalfLifeDifference(group=group, hour=hour, ComparisonFile=group)
+BridgeRHalfLifeDifferenceHist(group=group, hour=hour, ComparisonFile=group)
+BridgeRHalfLifeDifferenceBox(group=group, hour=hour, ComparisonFile=group)
+
