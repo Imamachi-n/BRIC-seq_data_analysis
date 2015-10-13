@@ -32,32 +32,49 @@ BridgeRDrawFittingCurve <- function(filename = "BridgeR_3_Normalized_expression_
     }
     
     ###Draw_fitting_curve###
+    setwd(paste("C:/Users/Naoto/Documents/github/BRIC-seq_data_analysis/BridgeR/data","/",output_dir_name,sep=""))
     gene_number <- length(input_file[[1]])
     for(x in 1:gene_number){
         data <- as.vector(as.matrix(input_file[x,]))
         
         #Save_fig
-        gene_name <- as.character(data[1])
+        gene_name <- as.character(data[2])
         file_name <- sprintf("%1$s.png",gene_name)
+        paste(output_dir_name,"/",file_name,sep="")
         png(filename=file_name,width = 640, height = 640)
         
         #Prepare_ggplot2
         p.fitting <- ggplot()
 
+        flg <- 0
+        fig_color <- NULL
         for(a in comp_file_number){
+            if(flg == 0){
+                fig_color <- "black"
+            }else{
+                fig_color <- "red"
+            }
             infor_st <- 1 + (a - 1)*(time_points + InforColumn)
             infor_ed <- (InforColumn)*a + (a - 1)*time_points
             exp_st <- infor_ed + 1
             exp_ed <- infor_ed + time_points
             
             exp <- as.numeric(data[exp_st:exp_ed])
-            hour <- c(0,1,2,4,8,12) ###TEST###
-            exp <- c(1,0.8350178,0.7806458,0.6386572,0.3946119,0.2603135)
+            #hour <- c(0,1,2,4,8,12) ###TEST###
+            #exp <- c(1,0.8350178,0.7806458,0.6386572,0.3946119,0.2603135)
             #exp <- c(1,0.9637603,1.131551,1.025119,1.246695,1.437431)
-            gene_name <- "test"
-            CutoffRelExp <- 0.1
-            CutoffDataPoint <- 3
+            #gene_name <- "test"
+            #CutoffRelExp <- 0.1
+            #CutoffDataPoint <- 3
             time_point_exp_original <- data.frame(hour,exp)
+            
+            p.fitting <- p.fitting + layer(data=time_point_exp_original, 
+                                           mapping=aes(x=hour, y=exp), 
+                                           geom="point",
+                                           size=4,
+                                           shape=19,
+                                           colour=fig_color)
+            
             time_point_exp <- time_point_exp_original[time_point_exp_original$exp >= CutoffRelExp, ] #>=0.1
             data_point <- length(time_point_exp$exp)
             if(!is.null(time_point_exp)){
@@ -83,27 +100,25 @@ BridgeRDrawFittingCurve <- function(filename = "BridgeR_3_Normalized_expression_
                     predicted_minus$exp <- model1_pred(coef_minus)
                     predicted_plus$exp <- model1_pred(coef_plus)
                     
-                    #predicted$exp <- exp((predict(model, predicted)))
-                    p.fitting <- ggplot()
-                    p.fitting <- p.fitting + layer(data=time_point_exp_original, 
-                                                   mapping=aes(x=hour, y=exp), 
-                                                   geom="point",
-                                                   size=4,
-                                                   shape=19)
+                    #p.fitting <- ggplot()
+                    
                     p.fitting <- p.fitting + layer(data=predicted,
                                                    mapping=(aes(x=hour, y=exp)),
                                                    geom="line",
-                                                   size=1.2)
+                                                   size=1.2,
+                                                   colour=fig_color)
                     p.fitting <- p.fitting + layer(data=predicted_minus,
                                                    mapping=(aes(x=hour, y=exp)),
                                                    geom="line",
                                                    size=0.5,
-                                                   linetype="dashed")
+                                                   linetype="dashed",
+                                                   colour=fig_color)
                     p.fitting <- p.fitting + layer(data=predicted_plus,
                                                    mapping=(aes(x=hour, y=exp)),
                                                    geom="line",
                                                    size=0.5,
-                                                   linetype="dashed")
+                                                   linetype="dashed",
+                                                   colour=fig_color)
                     p.fitting <- p.fitting + ylab("Relative RPKM (Time0 = 1)")
                     p.fitting <- p.fitting + xlim(0,12)
                     ybreaks <- seq(0,10,0.1)[2:101]
@@ -128,6 +143,7 @@ BridgeRDrawFittingCurve <- function(filename = "BridgeR_3_Normalized_expression_
             }else{
                 #cat("low_expresion","NA","NA","NA","NA","NA","NA","NA", sep="\t", file=output_file, append=T)
             } ###TEST###
+            flg = 1
         }
         #cat("\n", file=output_file, append=T)
     }
