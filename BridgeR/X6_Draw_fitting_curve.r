@@ -146,6 +146,8 @@ BridgeRDrawFittingCurve <- function(filename = "BridgeR_3_Normalized_expression_
             flg = 1
         }
         #cat("\n", file=output_file, append=T)
+        dev.off() #close_fig
+        plot.new()
     }
 }
 
