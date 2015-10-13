@@ -119,6 +119,8 @@ BridgeRDrawFittingCurve <- function(filename = "BridgeR_3_Normalized_expression_
                                                    size=0.5,
                                                    linetype="dashed",
                                                    colour=fig_color)
+                    p.fitting <- p.fitting + ggtitle(gene_name)
+                    p.fitting <- p.fitting + xlab("Time")
                     p.fitting <- p.fitting + ylab("Relative RPKM (Time0 = 1)")
                     p.fitting <- p.fitting + xlim(0,12)
                     ybreaks <- seq(0,10,0.1)[2:101]
@@ -151,4 +153,7 @@ BridgeRDrawFittingCurve <- function(filename = "BridgeR_3_Normalized_expression_
     }
 }
 
-BridgeRDrawFittingCurve(group=group, hour=hour, ComparisonFile=group)
+###Test###
+#BridgeRDrawFittingCurve(group=group, hour=hour, ComparisonFile=group)
+
+BridgeRDrawFittingCurve(filename = "BridgeR_3_Normalized_expression_data_house-keeping_genes.txt", group=group, hour=hour, ComparisonFile=group, OutputDir="BridgeR_fig_house-keeping_genes")

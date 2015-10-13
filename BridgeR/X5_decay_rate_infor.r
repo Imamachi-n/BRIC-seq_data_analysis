@@ -249,8 +249,13 @@ BridgeRHalfLifeDifferenceBox <- function(filename = "BridgeR_4_half-life_calcula
 }
 
 ###Test###
-BridgeRHalfLifeComparison(group=group, hour=hour, ComparisonFile=group)
-BridgeRHalfLifeDistribution(group=group, hour=hour, ComparisonFile=group)
-BridgeRHalfLifeDifferenceHist(group=group, hour=hour, ComparisonFile=group)
-BridgeRHalfLifeDifferenceBox(group=group, hour=hour, ComparisonFile=group)
+#BridgeRHalfLifeComparison(group=group, hour=hour, ComparisonFile=group)
+#BridgeRHalfLifeDistribution(group=group, hour=hour, ComparisonFile=group)
+#BridgeRHalfLifeDifferenceHist(group=group, hour=hour, ComparisonFile=group)
+#BridgeRHalfLifeDifferenceBox(group=group, hour=hour, ComparisonFile=group)
+
+BridgeRHalfLifeComparison(filename="BridgeR_4_half-life_calculation_house-keeping_genes.txt", OutputFig = "BridgeR_5_Half-life_comparison_house-keeping_genes", group=group, hour=hour, ComparisonFile=group)
+BridgeRHalfLifeDistribution(filename="BridgeR_4_half-life_calculation_house-keeping_genes.txt", OutputFig = "BridgeR_5_Half-life_distribution_house-keeping_genes", group=group, hour=hour, ComparisonFile=group)
+BridgeRHalfLifeDifferenceHist(filename="BridgeR_4_half-life_calculation_house-keeping_genes.txt", OutputFig = "BridgeR_5_Half-life_difference_Histgram_house-keeping_genes", group=group, hour=hour, ComparisonFile=group)
+BridgeRHalfLifeDifferenceBox(filename="BridgeR_4_half-life_calculation_house-keeping_genes.txt", OutputFig = "BridgeR_5_Half-life_difference_Boxplot_house-keeping_genes", group=group, hour=hour, ComparisonFile=group)
 

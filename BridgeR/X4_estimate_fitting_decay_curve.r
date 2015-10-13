@@ -90,4 +90,5 @@ BridgeRHalfLifeCalculation <- function(filename = "BridgeR_3_Normalized_expressi
     }
 }
 
-BridgeRHalfLifeCalculation(group=group, hour=hour)
+#BridgeRHalfLifeCalculation(group=group, hour=hour)
+BridgeRHalfLifeCalculation(filename="BridgeR_3_Normalized_expression_data_house-keeping_genes.txt", group=group, hour=hour, OutputFile = "BridgeR_4_half-life_calculation_house-keeping_genes.txt")
