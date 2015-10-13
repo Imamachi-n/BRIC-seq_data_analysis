@@ -9,7 +9,7 @@ setwd("C:/Users/Naoto/Documents/github/BRIC-seq_data_analysis/BridgeR/data")
 ###input_file_infor###
 hour <- c(0,1,2,4,8,12)
 group <- c("siCTRL","siStealth")
-files <- "C:/Users/Naoto/Documents/github/BRIC-seq_data_analysis/BridgeR/data/BridgeR_1_Relative_expression_data.txt"
+files <- "C:/Users/Naoto/Documents/github/BRIC-seq_data_analysis/BridgeR/data/BridgeR_3_Normalized_expression_data.txt"
 
 ###Estimate_normalization_factor_function###
 BridgeRHalfLifeCalculation <- function(filename = "BridgeR_3_Normalized_expression_data.txt", group, hour, InforColumn = 4, CutoffRelExp = 0.1, CutoffDataPoint = 3, OutputFile = "BridgeR_4_half-life_calculation.txt"){
