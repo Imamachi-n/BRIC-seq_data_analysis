@@ -61,59 +61,70 @@ BridgeRDrawFittingCurve <- function(filename = "BridgeR_3_Normalized_expression_
             
             exp <- as.numeric(data[exp_st:exp_ed])
             #hour <- c(0,1,2,4,8,12) ###TEST###
-            #exp <- c(1,0.8350178,0.7806458,0.6386572,0.3946119,0.2603135)
-            #exp <- c(1,0.9637603,1.131551,1.025119,1.246695,1.437431)
-            #gene_name <- "test"
-            #CutoffRelExp <- 0.1
-            #CutoffDataPoint <- 3
+            #exp <- c(1,0.8350178,0.7806458,0.6386572,0.3946119,0.2603135) #
+            #exp <- c(1,0.9637603,1.131551,1.025119,1.246695,1.437431) #
+            #gene_name <- "test" #
+            #fig_color <- "black" #
+            #CutoffRelExp <- 0.1 #
+            #CutoffDataPoint <- 3 #
             time_point_exp_original <- data.frame(hour,exp)
             
+            #p.fitting <- ggplot() #
             p.fitting <- p.fitting + layer(data=time_point_exp_original, 
                                            mapping=aes(x=hour, y=exp), 
                                            geom="point",
                                            size=4,
                                            shape=19,
                                            colour=fig_color)
-            
+
             time_point_exp <- time_point_exp_original[time_point_exp_original$exp >= CutoffRelExp, ] #>=0.1
             data_point <- length(time_point_exp$exp)
             if(!is.null(time_point_exp)){
                 if(data_point >= CutoffDataPoint){ #>=3
                     model <- lm(log(time_point_exp$exp) ~ time_point_exp$hour - 1)
-                    model_summary <- summary(model)
-                    coef <- -model_summary$coefficients[1]
-                    coef_error <- model_summary$coefficients[2]
-                    coef_minus <- coef - coef_error
-                    coef_plus <- coef + coef_error
+                    #model_summary <- summary(model)
+                    #coef <- -model_summary$coefficients[1]
+                    #coef_error <- model_summary$coefficients[2]
+                    #coef_minus <- coef - coef_error
+                    #coef_plus <- coef + coef_error
                     
                     xmin <- min(hour[1])
                     xmax <- max(hour[length(hour)])
-                    predicted_hour <- seq(xmin,xmax,length.out=100)
-                    predicted <- data.frame(hour=predicted_hour)
-                    predicted_minus <- data.frame(hour=predicted_hour)
-                    predicted_plus <- data.frame(hour=predicted_hour)
                     
-                    model1_pred <- function(x){
-                        mRNA_exp <- exp(-x * predicted$hour)
-                    }
-                    predicted$exp <- model1_pred(coef)
-                    predicted_minus$exp <- model1_pred(coef_minus)
-                    predicted_plus$exp <- model1_pred(coef_plus)
+                    predicted2 <- data.frame(hour=time_point_exp$hour)
+                    predicted2_minus <- data.frame(hour=time_point_exp$hour)
+                    predicted2_plus <- data.frame(hour=time_point_exp$hour)
                     
-                    #p.fitting <- ggplot()
+                    pred_conf <- predict(model, predicted2, interval="prediction",level=0.90)
+                    #pred_conf <- predict(model, predicted2, interval="confidence",level=0.95)
+                    predicted2$exp <- exp(as.vector(as.matrix(pred_conf[,1])))
+                    predicted2_minus$exp <- exp(as.vector(as.matrix(pred_conf[,2])))
+                    predicted2_plus$exp <- exp(as.vector(as.matrix(pred_conf[,3])))
                     
-                    p.fitting <- p.fitting + layer(data=predicted,
+                    #predicted_hour <- seq(xmin,xmax,length.out=100)
+                    #predicted <- data.frame(hour=predicted_hour)
+                    #predicted_minus <- data.frame(hour=predicted_hour)
+                    #predicted_plus <- data.frame(hour=predicted_hour)
+                    
+                    #model1_pred <- function(x){
+                    #    mRNA_exp <- exp(-x * predicted$hour)
+                    #}
+                    #predicted$exp <- model1_pred(coef)
+                    #predicted_minus$exp <- model1_pred(coef_minus)
+                    #predicted_plus$exp <- model1_pred(coef_plus)
+                    
+                    p.fitting <- p.fitting + layer(data=predicted2,
                                                    mapping=(aes(x=hour, y=exp)),
                                                    geom="line",
                                                    size=1.2,
                                                    colour=fig_color)
-                    p.fitting <- p.fitting + layer(data=predicted_minus,
+                    p.fitting <- p.fitting + layer(data=predicted2_minus,
                                                    mapping=(aes(x=hour, y=exp)),
                                                    geom="line",
                                                    size=0.5,
                                                    linetype="dashed",
                                                    colour=fig_color)
-                    p.fitting <- p.fitting + layer(data=predicted_plus,
+                    p.fitting <- p.fitting + layer(data=predicted2_plus,
                                                    mapping=(aes(x=hour, y=exp)),
                                                    geom="line",
                                                    size=0.5,
@@ -125,29 +136,11 @@ BridgeRDrawFittingCurve <- function(filename = "BridgeR_3_Normalized_expression_
                     p.fitting <- p.fitting + xlim(0,12)
                     ybreaks <- seq(0,10,0.1)[2:101]
                     p.fitting <- p.fitting + scale_y_log10(breaks=ybreaks,labels=ybreaks)
-                    #p.fitting <- p.fitting + scale_y_log10()
                     plot(p.fitting)
-                    #model_summary <- summary(model)
-                    #coef <- -model_summary$coefficients[1]
-                    #coef_error <- model_summary$coefficients[2]
-                    #coef_p <- model_summary$coefficients[4]
-                    #r_squared <- model_summary$r.squared
-                    #adj_r_squared <- model_summary$adj.r.squared
-                    #residual_standard_err <- model_summary$sigma
-                    #half_life <- log(2)/coef
-                    #if(coef < 0 || half_life >= 24){
-                    #    half_life <- 24
-                    #}
-                    #cat("Exponential_Decay_Model",coef,coef_error,coef_p,r_squared,adj_r_squared,residual_standard_err,half_life, sep="\t", file=output_file, append=T)
-                }else{
-                    #cat("few_data","NA","NA","NA","NA","NA","NA","NA", sep="\t", file=output_file, append=T)
                 }
-            }else{
-                #cat("low_expresion","NA","NA","NA","NA","NA","NA","NA", sep="\t", file=output_file, append=T)
             } ###TEST###
             flg = 1
         }
-        #cat("\n", file=output_file, append=T)
         dev.off() #close_fig
         plot.new()
     }

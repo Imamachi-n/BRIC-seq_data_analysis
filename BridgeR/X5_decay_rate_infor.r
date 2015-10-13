@@ -84,7 +84,7 @@ BridgeRHalfLifeComparison <- function(filename = "BridgeR_4_half-life_calculatio
     p.scatter <- p.scatter + xlab(name_xlab)
     p.scatter <- p.scatter + ylab(name_ylab)
     p.scatter <- p.scatter + theme(legend.position="none") #Remove Guides
-    p.scatter <- p.scatter + scale_colour_manual(values=c("black","red","blue")) #Change color
+    p.scatter <- p.scatter + scale_colour_manual(values=c("black","blue","red")) #Change color
     plot(p.scatter)
         
     dev.off() #close_fig
@@ -147,7 +147,7 @@ BridgeRHalfLifeDistribution <- function(filename = "BridgeR_4_half-life_calculat
     plot.new()
 }
 
-BridgeRHalfLifeDifferenceHist <- function(filename = "BridgeR_4_half-life_calculation.txt", group, hour, ComparisonFile, InforColumn = 4, OutputFig = "BridgeR_5_Half-life_difference_Histgram"){
+BridgeRHalfLifeDifferenceHist <- function(filename = "BridgeR_4_half-life_calculation.txt", group, hour, ComparisonFile, InforColumn = 4, BinwidthFig = 0.01, OutputFig = "BridgeR_5_Half-life_difference_Histgram"){
     #ComparisonFile: The length of vector must be 2 => c("Control","Knockdown")
     ###Import_library###
     library(data.table)
@@ -181,7 +181,7 @@ BridgeRHalfLifeDifferenceHist <- function(filename = "BridgeR_4_half-life_calcul
     p.scatter <- p.scatter + layer(data=plot_data, 
                                    mapping=aes(x=div_half), 
                                    geom="freqpoly",
-                                   binwidth=0.01,
+                                   binwidth=BinwidthFig,
                                    size=1.2)
     p.scatter <- p.scatter + xlim(min(plot_data$div_half),max(plot_data$div_half))
     p.scatter <- p.scatter + ggtitle("Half-life difference")
@@ -249,13 +249,15 @@ BridgeRHalfLifeDifferenceBox <- function(filename = "BridgeR_4_half-life_calcula
 }
 
 ###Test###
-#BridgeRHalfLifeComparison(group=group, hour=hour, ComparisonFile=group)
-#BridgeRHalfLifeDistribution(group=group, hour=hour, ComparisonFile=group)
-#BridgeRHalfLifeDifferenceHist(group=group, hour=hour, ComparisonFile=group)
-#BridgeRHalfLifeDifferenceBox(group=group, hour=hour, ComparisonFile=group)
+BridgeRHalfLifeComparison(group=group, hour=hour, ComparisonFile=group)
+BridgeRHalfLifeDistribution(group=group, hour=hour, ComparisonFile=group)
+BridgeRHalfLifeDifferenceHist(group=group, hour=hour, ComparisonFile=group)
+BridgeRHalfLifeDifferenceHist(group=group, hour=hour, ComparisonFile=group, BinwidthFig=0.1, OutputFig = "BridgeR_5_Half-life_difference_Histgram_01", BinwidthFig=0.1)
+BridgeRHalfLifeDifferenceBox(group=group, hour=hour, ComparisonFile=group)
 
 BridgeRHalfLifeComparison(filename="BridgeR_4_half-life_calculation_house-keeping_genes.txt", OutputFig = "BridgeR_5_Half-life_comparison_house-keeping_genes", group=group, hour=hour, ComparisonFile=group)
 BridgeRHalfLifeDistribution(filename="BridgeR_4_half-life_calculation_house-keeping_genes.txt", OutputFig = "BridgeR_5_Half-life_distribution_house-keeping_genes", group=group, hour=hour, ComparisonFile=group)
 BridgeRHalfLifeDifferenceHist(filename="BridgeR_4_half-life_calculation_house-keeping_genes.txt", OutputFig = "BridgeR_5_Half-life_difference_Histgram_house-keeping_genes", group=group, hour=hour, ComparisonFile=group)
+BridgeRHalfLifeDifferenceHist(filename="BridgeR_4_half-life_calculation_house-keeping_genes.txt", OutputFig = "BridgeR_5_Half-life_difference_Histgram_01_house-keeping_genes", group=group, hour=hour, ComparisonFile=group, BinwidthFig=0.1)
 BridgeRHalfLifeDifferenceBox(filename="BridgeR_4_half-life_calculation_house-keeping_genes.txt", OutputFig = "BridgeR_5_Half-life_difference_Boxplot_house-keeping_genes", group=group, hour=hour, ComparisonFile=group)
 
