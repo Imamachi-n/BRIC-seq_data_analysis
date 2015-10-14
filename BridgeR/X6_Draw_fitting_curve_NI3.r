@@ -125,3 +125,4 @@ BridgeRDrawFittingCurve <- function(filename = "BridgeR_3_Normalized_expression_
 BridgeRDrawFittingCurve(group=group, hour=hour, ComparisonFile=group)
 
 #BridgeRDrawFittingCurve(filename = "BridgeR_3_Normalized_expression_data_house-keeping_genes.txt", group=group, hour=hour, ComparisonFile=group, OutputDir="BridgeR_fig_house-keeping_genes")
+
