@@ -51,7 +51,7 @@ BridgeRDrawFittingCurve <- function(filename = "BridgeR_3_Normalized_expression_
         infor <- colnames(input_file)[infor_st:infor_ed]
         cat(infor,hour_label, sep="\t", file=output_file, append=T)
         cat("\t", sep="", file=output_file, append=T)
-        cat("Model","Decay_rate_coef","coef_error","coef_p-value","R2","Adjusted_R2","Residual_standard_error","half_life","half_life_SD", sep="\t", file=output_file, append=T)
+        cat("Model","Decay_rate_coef","coef_error","coef_p-value","R2","Adjusted_R2","Residual_standard_error","half_life","SD_ori","half_exp_minus","half_exp_plus","half_life_SD", sep="\t", file=output_file, append=T)
     }
     cat("\t", sep="", file=output_file, append=T)
     cat("p_value(Welch Modified Two-Sample t-Test)","\n", sep="\t", file=output_file, append=T)
@@ -167,6 +167,7 @@ BridgeRDrawFittingCurve <- function(filename = "BridgeR_3_Normalized_expression_
 
                     SE_fitting_curve <- sqrt(SE_half_life^2 + Residual_fit^2)
                     SD_fitting_curve <- SE_fitting_curve * sqrt(data_point-1)
+                    
                     half_life_exp_lm_minus <- exp(log(0.5)-SD_fitting_curve)
                     half_life_exp_lm_plus <- exp(log(0.5)+SD_fitting_curve)
                     half_life_plus <- -log(half_life_exp_lm_minus)/coef
@@ -179,7 +180,7 @@ BridgeRDrawFittingCurve <- function(filename = "BridgeR_3_Normalized_expression_
                     X_for_p <- append(X_for_p, half_life)
                     
                     cat("\t", sep="\t", file=output_file, append=T)
-                    cat(SD_for_test, sep="\t", file=output_file, append=T)
+                    cat(SD_fitting_curve,half_life_exp_lm_minus,half_life_exp_lm_plus,SD_for_test, sep="\t", file=output_file, append=T)
                     
                     #model1_pred <- function(x)
                     #{
@@ -210,11 +211,11 @@ BridgeRDrawFittingCurve <- function(filename = "BridgeR_3_Normalized_expression_
                     p.fitting <- p.fitting + scale_y_log10(breaks=ybreaks,labels=ybreaks)
                     plot(p.fitting)
                 }else{
-                    cat("few_data","NA","NA","NA","NA","NA","NA","NA","NA", sep="\t", file=output_file, append=T)
+                    cat("few_data","NA","NA","NA","NA","NA","NA","NA","NA","NA","NA","NA", sep="\t", file=output_file, append=T)
                     flg_for_p <- 1
                 }
             }else{  ###TEST###
-                cat("low_expresion","NA","NA","NA","NA","NA","NA","NA","NA", sep="\t", file=output_file, append=T)
+                cat("low_expresion","NA","NA","NA","NA","NA","NA","NA","NA","NA","NA","NA", sep="\t", file=output_file, append=T)
                 flg_for_p <- 1
             }
             flg = 1
