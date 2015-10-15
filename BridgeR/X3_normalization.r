@@ -103,5 +103,7 @@ BridgeRNormalization <- function(filename = "BridgeR_1_Relative_expression_data.
 
 ###Test###
 #BridgeRNormalization(group=group, hour=hour)
-BridgeRNormalization(filename = "BridgeR_1_Relative_expression_data_siStealth_siPUM1.txt", group=group, hour=hour, OutputFile = "BridgeR_3_Normalized_expression_data_siStealth_siPUM1.txt")
+#BridgeRNormalization(filename = "BridgeR_1_Relative_expression_data_siStealth_siPUM1.txt", group=group, hour=hour, OutputFile = "BridgeR_3_Normalized_expression_data_siStealth_siPUM1.txt")
+
+BridgeRNormalization(filename = "BridgeR_0_Simulation_dataset_rpkm.txt", group=c("Simulation_A"), hour=hour, InforColumn = 1, OutputFile = "BridgeR_3_Normalized_simulation_data.txt")
 

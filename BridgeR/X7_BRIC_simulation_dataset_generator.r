@@ -10,7 +10,7 @@ setwd("C:/Users/Naoto/Documents/github/BRIC-seq_data_analysis/BridgeR/data")
 hour <- c(0,1,2,4,8,12)
 
 ###Draw_fitting_curve_function###
-BridgeRSimulationGenerator <- function(FileName = "BridgeR_0_Simulation_dataset.txt", GeneNumber = 10000, hour = c(0,1,2,4,8,12)){
+BridgeRSimulationGenerator <- function(FileName = "BridgeR_0_Simulation_dataset", GeneNumber = 10000, hour = c(0,1,2,4,8,12)){
     ###Import_library###
     #library(numbers)
     
@@ -70,12 +70,29 @@ BridgeRSimulationGenerator <- function(FileName = "BridgeR_0_Simulation_dataset.
     for(x in hour){
         hour_label <- append(hour_label, paste("T", x, sep=""))
     }
+    colnames(relative_rna_remaining_table) <- hour_label
     colnames(relative_expression_table) <- hour_label
     
     ###Write_data###
-    write.table(relative_expression_table,file=FileName, sep="\t")
+    relative_rna_remaining_table <- data.frame(relative_rna_remaining_table, half_life=art_half_life)
+    filename_rpkm <- paste(FileName,"_rpkm.txt",sep="")
+    filename_raw <- paste(FileName,"_raw.txt",sep="")
+    
+    cat("gr_id",hour_label, sep="\t",file=filename_rpkm)
+    cat("\n", sep="\t",file=filename_rpkm, append=T)
+    cat("gr_id",hour_label,"half_life", sep="\t",file=filename_raw)
+    cat("\n", sep="\t",file=filename_raw, append=T)
+    
+    for(x in 1:length(relative_rna_remaining_table[,1])){
+        cat(x,as.vector(as.matrix(relative_expression_table[x,])), sep="\t",file=filename_rpkm, append=T)
+        cat("\n", sep="\t",file=filename_rpkm, append=T)
+        cat(x,as.vector(as.matrix(relative_rna_remaining_table[x,])), sep="\t",file=filename_raw, append=T)
+        cat("\n", sep="\t",file=filename_raw, append=T)
+    }
+    #write.table(relative_expression_table,file=filename_rpkm, sep="\t")
+    #write.table(relative_rna_remaining_table,file=filename_raw, sep="\t")
 }
 
 ###Test###
-BridgeRSimulationGenerator(FileName = "BridgeR_0_Simulation_dataset.txt", GeneNumber = 10000, hour = c(0,1,2,4,8,12))
+BridgeRSimulationGenerator(FileName = "BridgeR_0_Simulation_dataset", GeneNumber = 10000, hour = c(0,1,2,4,8,12))
 

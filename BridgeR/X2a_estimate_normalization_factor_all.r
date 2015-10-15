@@ -16,56 +16,7 @@ files <- c("C:/Users/Naoto/Documents/github/BRIC-seq_data_analysis/BridgeR/data/
            "C:/Users/Naoto/Documents/github/BRIC-seq_data_analysis/BridgeR/data/siPUM1_genes_RefSeq_result_mRNA.fpkm_table")
 
 ###Estimate_normalization_factor_function###
-BridgeRStableGenesDataSet <- function(filename = "BridgeR_1_Relative_expression_data.txt", group, hour, InforColumn = 4, OutputFile = "BridgeR_2_Stable_genes_dataset"){
-    ###Import_library###
-    library(data.table)
-
-    ###Prepare_files###
-    time_points <- length(hour)
-    input_file <- suppressWarnings(fread(filename, header=T))
-    
-    ###Extract_Stable_genes_from_dataset###
-    group_number <- length(group)
-    for(a in 1:group_number){
-        output_filename <- paste(OutputFile,a,"_",group[a],".txt",sep="")
-        
-        ###print_header###
-        cat("",file=output_filename)
-        hour_label <- NULL
-        for(x in hour){
-            hour_label <- append(hour_label, paste("T", x, "_", a, sep=""))
-        }
-        infor_st <- 1 + (a - 1)*(time_points + InforColumn)
-        infor_ed <- (InforColumn)*a + (a - 1)*time_points
-        infor <- colnames(input_file)[infor_st:infor_ed]
-        cat(infor,hour_label, sep="\t", file=output_filename, append=T)
-        cat("\n", sep="", file=output_filename, append=T) 
-        
-        ###Extract_Stable_genes_from_dataset###
-        gene_number <- length(input_file[[1]]) #Total number of genes
-        for(y in 1:gene_number){
-            data <- as.vector(as.matrix(input_file[y,]))
-            ###Exp_data###
-            exp_st <- infor_ed + 1
-            exp_ed <- infor_ed + time_points
-            exp <- data[exp_st:exp_ed]
-            exp <- as.numeric(exp)
-            if(all(exp >= 1)){
-                ###Infor_data###
-                gene_infor <- data[infor_st:infor_ed]
-                cat(gene_infor, sep="\t", file=output_filename, append=T)
-                cat("\t", sep="", file=output_filename, append=T)
-                ###Exp_data###
-                cat(exp, sep="\t", file=output_filename, append=T)
-                cat("\n", sep="", file=output_filename, append=T)
-            }
-        }
-    }
-    
-    
-}
-
-BridgeRNormalizationFactors <- function(InputFile = "BridgeR_2_Stable_genes_dataset", group, hour, InforColumn = 4, NormFactor = "BridgeR_2_Normalizaion_factor_dataset", figname = "BridgeR_2_Normalizaion_factor_fig_dataset"){
+BridgeRNormalizationFactorsAll <- function(InputFile = "BridgeR_2_Stable_genes_dataset", group, hour, InforColumn = 4, YMin = -2, YMax = 2, figname = "BridgeR_2_Normalizaion_factor_fig_all_dataset"){
     ###Import_library###
     library(data.table)
     library(ggplot2)
@@ -76,7 +27,8 @@ BridgeRNormalizationFactors <- function(InputFile = "BridgeR_2_Stable_genes_data
     
     for(a in 1:group_number){
         ###Load_files###
-        input_filename <- paste(InputFile,a,"_",group[a],".txt", sep="")
+        #input_filename <- paste(InputFile,a,"_",group[a],".txt", sep="")
+        input_filename <- InputFile
         input_file <- fread(input_filename, header=T)
         
         ###Output_files###
@@ -100,17 +52,10 @@ BridgeRNormalizationFactors <- function(InputFile = "BridgeR_2_Stable_genes_data
             quantile_99_data <- append(quantile_99_data, each_time_quantile_99)
             quantile_95_data <- append(quantile_95_data, each_time_quantile_95)
         }
-        quantile_99_data <- as.vector(quantile_99_data)
-        quantile_95_data <- as.vector(quantile_95_data)
+        quantile_99_data <- log10(as.vector(quantile_99_data)) #
+        quantile_95_data <- log10(as.vector(quantile_95_data)) #
         plot_data_quantile_99 <- data.frame(hour,quantile_99_data)
         plot_data_quantile_95 <- data.frame(hour,quantile_95_data)
-        cat('Percentile',hour_label, sep="\t", file=output_filename)
-        cat("\n", file=output_filename, append=T)
-        cat('99%_percentale',quantile_99_data, sep="\t", file=output_filename, append=T)
-        cat("\n", file=output_filename, append=T)
-        cat('95%_percentale',quantile_95_data, sep="\t", file=output_filename, append=T)
-        cat("\n", file=output_filename, append=T)
-        
         
         ###Plot_stable_genes_exp###
         figfile <- paste(figname,a,"_",group[a],".png", sep="")
@@ -120,6 +65,7 @@ BridgeRNormalizationFactors <- function(InputFile = "BridgeR_2_Stable_genes_data
         exp_data <- t(exp_data) #Inverse
         exp_data <- factor(exp_data)
         exp_data <- as.numeric(as.character(exp_data))
+        exp_data <- log10(exp_data) #
         time_data <- as.numeric(rep(hour,stable_genes_number))
         class_data <- NULL
         for (x in 1:stable_genes_number){
@@ -149,7 +95,7 @@ BridgeRNormalizationFactors <- function(InputFile = "BridgeR_2_Stable_genes_data
                                        colour="blue",
                                        size=0.5,
                                        alpha=1)
-        p.scatter <- p.scatter + xlim(0,max(plot_data$time_data)) + ylim(min(plot_data$exp_data),max(plot_data$exp_data))
+        p.scatter <- p.scatter + xlim(0,max(plot_data$time_data)) + ylim(YMin, YMax)
         p.scatter <- p.scatter + ggtitle("Stable genes distribution")
         p.scatter <- p.scatter + xlab("Time course")
         p.scatter <- p.scatter + ylab("Relative RPKM (Time0 = 1)")
@@ -161,9 +107,9 @@ BridgeRNormalizationFactors <- function(InputFile = "BridgeR_2_Stable_genes_data
 }
 
 ###Test###
-#BridgeRStableGenesDataSet(filename="BridgeR_1_Relative_expression_data_siStealth_siPUM1.txt", group=group, hour=hour)
 #BridgeRNormalizationFactors(group=group, hour=hour)
-#BridgeRNormalizationFactors(InputFile = "BridgeR_2_Stable_genes_dataset",group=group, hour=hour)
+#BridgeRNormalizationFactors(InputFile = "BridgeR_2_All_genes_dataset",group=group, hour=hour, figname = "BridgeR_2_Normalizaion_factor_fig_dataset_test")
+#BridgeRNormalizationFactors(InputFile = "siStealth_genes_RefSeq_result_mRNA.fpkm_table",group=group, hour=hour, figname = "BridgeR_2_Normalizaion_factor_fig_dataset_test_siStealth")
 
-#BridgeRStableGenesDataSet(filename="BridgeR_0_Simulation_dataset_rpkm.txt", group=c("Simulation_A"), hour=hour, InforColumn = 1, OutputFile = "BridgeR_2_Stable_genes_dataset")
-BridgeRNormalizationFactors(InputFile = "BridgeR_2_Stable_genes_dataset",group=c("Simulation_A"), hour=hour, InforColumn = 1, NormFactor = "BridgeR_2_Normalizaion_factor_dataset", figname = "BridgeR_2_Normalizaion_factor_fig_dataset")
+BridgeRNormalizationFactorsAll(InputFile = "BridgeR_0_Simulation_dataset_rpkm.txt", YMin=-7, YMax = 0.5, group=c("Simulation_A"), hour=hour, InforColumn = 1, figname = "BridgeR_2_Normalizaion_factor_fig_all_dataset")
+
