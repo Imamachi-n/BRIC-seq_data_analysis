@@ -8,8 +8,12 @@ setwd("C:/Users/Naoto/Documents/github/BRIC-seq_data_analysis/BridgeR/data")
 
 ###input_file_infor###
 hour <- c(0,1,2,4,8,12)
-group <- c("siCTRL","siStealth")
-files <- "C:/Users/Naoto/Documents/github/BRIC-seq_data_analysis/BridgeR/data/BridgeR_3_Normalized_expression_data.txt"
+#group <- c("siCTRL","siStealth")
+group <- c("siStealth","siPUM1")
+#files <- c("C:/Users/Naoto/Documents/github/BRIC-seq_data_analysis/BridgeR/data/siCTRL_genes_RefSeq_result_mRNA.fpkm_table",
+#           "C:/Users/Naoto/Documents/github/BRIC-seq_data_analysis/BridgeR/data/siStealth_genes_RefSeq_result_mRNA.fpkm_table")
+files <- c("C:/Users/Naoto/Documents/github/BRIC-seq_data_analysis/BridgeR/data/siStealth_genes_RefSeq_result_mRNA.fpkm_table",
+           "C:/Users/Naoto/Documents/github/BRIC-seq_data_analysis/BridgeR/data/siPUM1_genes_RefSeq_result_mRNA.fpkm_table")
 
 ###Draw_fitting_curve_function###
 BridgeRDrawFittingCurve <- function(filename = "BridgeR_3_Normalized_expression_data.txt", group, hour, ComparisonFile, CutoffRelExp = 0.1, CutoffDataPoint = 3, InforColumn = 4, OutputDir = "BridgeR_fig", OutputFile = "BridgeR_4_half-life_p-value.txt"){
@@ -125,8 +129,11 @@ BridgeRDrawFittingCurve <- function(filename = "BridgeR_3_Normalized_expression_
                     adj_r_squared <- model_summary$adj.r.squared
                     residual_standard_err <- model_summary$sigma
                     half_life <- log(2)/coef
-                    if(coef < 0 || half_life >= 24){
-                        half_life <- 24
+                    #if(coef < 0 || half_life >= 24){
+                    #    half_life <- 24
+                    #}
+                    if(coef < 0){
+                        half_life <- Inf
                     }
                     cat("Exponential_Decay_Model",coef,coef_error,coef_p,r_squared,adj_r_squared,residual_standard_err,half_life, sep="\t", file=output_file, append=T)
 
@@ -235,6 +242,6 @@ BridgeRDrawFittingCurve <- function(filename = "BridgeR_3_Normalized_expression_
 }
 
 ###Test###
-BridgeRDrawFittingCurve(group=group, hour=hour, ComparisonFile=group)
-
+#BridgeRDrawFittingCurve(group=group, hour=hour, ComparisonFile=group)
 #BridgeRDrawFittingCurve(filename = "BridgeR_3_Normalized_expression_data_house-keeping_genes.txt", group=group, hour=hour, ComparisonFile=group, OutputDir="BridgeR_fig_house-keeping_genes")
+BridgeRDrawFittingCurve(filename = "BridgeR_3_Normalized_expression_data_siStealth_siPUM1.txt", group=group, hour=hour, ComparisonFile=group, OutputDir="BridgeR_fig_PUM1")

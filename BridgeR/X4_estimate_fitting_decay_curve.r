@@ -8,8 +8,12 @@ setwd("C:/Users/Naoto/Documents/github/BRIC-seq_data_analysis/BridgeR/data")
 
 ###input_file_infor###
 hour <- c(0,1,2,4,8,12)
-group <- c("siCTRL","siStealth")
-files <- "C:/Users/Naoto/Documents/github/BRIC-seq_data_analysis/BridgeR/data/BridgeR_3_Normalized_expression_data.txt"
+#group <- c("siCTRL","siStealth")
+group <- c("siStealth","siPUM1")
+#files <- c("C:/Users/Naoto/Documents/github/BRIC-seq_data_analysis/BridgeR/data/siCTRL_genes_RefSeq_result_mRNA.fpkm_table",
+#           "C:/Users/Naoto/Documents/github/BRIC-seq_data_analysis/BridgeR/data/siStealth_genes_RefSeq_result_mRNA.fpkm_table")
+files <- c("C:/Users/Naoto/Documents/github/BRIC-seq_data_analysis/BridgeR/data/siStealth_genes_RefSeq_result_mRNA.fpkm_table",
+           "C:/Users/Naoto/Documents/github/BRIC-seq_data_analysis/BridgeR/data/siPUM1_genes_RefSeq_result_mRNA.fpkm_table")
 
 ###Estimate_normalization_factor_function###
 BridgeRHalfLifeCalculation <- function(filename = "BridgeR_3_Normalized_expression_data.txt", group, hour, InforColumn = 4, CutoffRelExp = 0.1, CutoffDataPoint = 3, OutputFile = "BridgeR_4_half-life_calculation.txt"){
@@ -90,5 +94,7 @@ BridgeRHalfLifeCalculation <- function(filename = "BridgeR_3_Normalized_expressi
     }
 }
 
+###Test###
 #BridgeRHalfLifeCalculation(group=group, hour=hour)
-BridgeRHalfLifeCalculation(filename="BridgeR_3_Normalized_expression_data_house-keeping_genes.txt", group=group, hour=hour, OutputFile = "BridgeR_4_half-life_calculation_house-keeping_genes.txt")
+#BridgeRHalfLifeCalculation(filename="BridgeR_3_Normalized_expression_data_house-keeping_genes.txt", group=group, hour=hour, OutputFile = "BridgeR_4_half-life_calculation_house-keeping_genes.txt")
+BridgeRHalfLifeCalculation(filename="BridgeR_3_Normalized_expression_data_siStealth_siPUM1.txt", group=group, hour=hour, OutputFile = "BridgeR_4_half-life_calculation_siStealth_siPUM1.txt")

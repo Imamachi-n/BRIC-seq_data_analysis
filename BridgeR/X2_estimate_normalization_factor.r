@@ -8,8 +8,12 @@ setwd("C:/Users/Naoto/Documents/github/BRIC-seq_data_analysis/BridgeR/data")
 
 ###input_file_infor###
 hour <- c(0,1,2,4,8,12)
-group <- c("siCTRL","siStealth")
-files <- "C:/Users/Naoto/Documents/github/BRIC-seq_data_analysis/BridgeR/data/BridgeR_1_Relative_expression_data.txt"
+#group <- c("siCTRL","siStealth")
+group <- c("siStealth","siPUM1")
+#files <- c("C:/Users/Naoto/Documents/github/BRIC-seq_data_analysis/BridgeR/data/siCTRL_genes_RefSeq_result_mRNA.fpkm_table",
+#           "C:/Users/Naoto/Documents/github/BRIC-seq_data_analysis/BridgeR/data/siStealth_genes_RefSeq_result_mRNA.fpkm_table")
+files <- c("C:/Users/Naoto/Documents/github/BRIC-seq_data_analysis/BridgeR/data/siStealth_genes_RefSeq_result_mRNA.fpkm_table",
+           "C:/Users/Naoto/Documents/github/BRIC-seq_data_analysis/BridgeR/data/siPUM1_genes_RefSeq_result_mRNA.fpkm_table")
 
 ###Estimate_normalization_factor_function###
 BridgeRStableGenesDataSet <- function(filename = "BridgeR_1_Relative_expression_data.txt", group, hour, InforColumn = 4, OutputFile = "BridgeR_2_Stable_genes_dataset"){
@@ -145,7 +149,7 @@ BridgeRNormalizationFactors <- function(InputFile = "BridgeR_2_Stable_genes_data
                                        colour="blue",
                                        size=0.5,
                                        alpha=1)
-        p.scatter <- p.scatter + xlim(0,max(plot_data$time_data)) + ylim(1,max(plot_data$exp_data))
+        p.scatter <- p.scatter + xlim(0,max(plot_data$time_data)) + ylim(min(plot_data$exp_data),max(plot_data$exp_data))
         p.scatter <- p.scatter + ggtitle("Stable genes distribution")
         p.scatter <- p.scatter + xlab("Time course")
         p.scatter <- p.scatter + ylab("Relative RPKM (Time0 = 1)")
@@ -157,5 +161,6 @@ BridgeRNormalizationFactors <- function(InputFile = "BridgeR_2_Stable_genes_data
 }
 
 ###Test###
-BridgeRStableGenesDataSet(filename=files, group=group, hour=hour)
-BridgeRNormalizationFactors(group=group, hour=hour)
+#BridgeRStableGenesDataSet(filename="BridgeR_1_Relative_expression_data_siStealth_siPUM1.txt", group=group, hour=hour)
+#BridgeRNormalizationFactors(group=group, hour=hour)
+BridgeRNormalizationFactors(InputFile = "BridgeR_2_Stable_genes_dataset",group=group, hour=hour)

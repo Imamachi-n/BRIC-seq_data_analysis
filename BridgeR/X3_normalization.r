@@ -8,8 +8,12 @@ setwd("C:/Users/Naoto/Documents/github/BRIC-seq_data_analysis/BridgeR/data")
 
 ###input_file_infor###
 hour <- c(0,1,2,4,8,12)
-group <- c("siCTRL","siStealth")
-files <- "C:/Users/Naoto/Documents/github/BRIC-seq_data_analysis/BridgeR/data/BridgeR_1_Relative_expression_data.txt"
+#group <- c("siCTRL","siStealth")
+group <- c("siStealth","siPUM1")
+#files <- c("C:/Users/Naoto/Documents/github/BRIC-seq_data_analysis/BridgeR/data/siCTRL_genes_RefSeq_result_mRNA.fpkm_table",
+#           "C:/Users/Naoto/Documents/github/BRIC-seq_data_analysis/BridgeR/data/siStealth_genes_RefSeq_result_mRNA.fpkm_table")
+files <- c("C:/Users/Naoto/Documents/github/BRIC-seq_data_analysis/BridgeR/data/siStealth_genes_RefSeq_result_mRNA.fpkm_table",
+           "C:/Users/Naoto/Documents/github/BRIC-seq_data_analysis/BridgeR/data/siPUM1_genes_RefSeq_result_mRNA.fpkm_table")
 
 ###Estimate_normalization_factor_function###
 BridgeRNormalization <- function(filename = "BridgeR_1_Relative_expression_data.txt", group, hour, InforColumn = 4, SelectNormFactor=T, NormFactor = "BridgeR_2_Normalizaion_factor_dataset", OutputFile = "BridgeR_3_Normalized_expression_data.txt"){
@@ -98,4 +102,6 @@ BridgeRNormalization <- function(filename = "BridgeR_1_Relative_expression_data.
 }
 
 ###Test###
-BridgeRNormalization(group=group, hour=hour)
+#BridgeRNormalization(group=group, hour=hour)
+BridgeRNormalization(filename = "BridgeR_1_Relative_expression_data_siStealth_siPUM1.txt", group=group, hour=hour, OutputFile = "BridgeR_3_Normalized_expression_data_siStealth_siPUM1.txt")
+
