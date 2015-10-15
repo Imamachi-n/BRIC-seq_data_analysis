@@ -8,8 +8,12 @@ setwd("C:/Users/Naoto/Documents/github/BRIC-seq_data_analysis/BridgeR/data")
 
 ###input_file_infor###
 hour <- c(0,1,2,4,8,12)
-group <- c("siCTRL","siStealth")
-files <- "C:/Users/Naoto/Documents/github/BRIC-seq_data_analysis/BridgeR/data/BridgeR_4_half-life_calculation.txt"
+#group <- c("siCTRL","siStealth")
+group <- c("siStealth","siPUM1")
+#files <- c("C:/Users/Naoto/Documents/github/BRIC-seq_data_analysis/BridgeR/data/siCTRL_genes_RefSeq_result_mRNA.fpkm_table",
+#           "C:/Users/Naoto/Documents/github/BRIC-seq_data_analysis/BridgeR/data/siStealth_genes_RefSeq_result_mRNA.fpkm_table")
+files <- c("C:/Users/Naoto/Documents/github/BRIC-seq_data_analysis/BridgeR/data/siStealth_genes_RefSeq_result_mRNA.fpkm_table",
+           "C:/Users/Naoto/Documents/github/BRIC-seq_data_analysis/BridgeR/data/siPUM1_genes_RefSeq_result_mRNA.fpkm_table")
 
 ###Decay_rate_Infor_function###
 BridgeRHalfLifeComparison <- function(filename = "BridgeR_4_half-life_calculation.txt", group, hour, ComparisonFile, InforColumn = 4, LogScale=F, OutputFig = "BridgeR_5_Half-life_comparison"){
@@ -249,15 +253,20 @@ BridgeRHalfLifeDifferenceBox <- function(filename = "BridgeR_4_half-life_calcula
 }
 
 ###Test###
-BridgeRHalfLifeComparison(group=group, hour=hour, ComparisonFile=group)
-BridgeRHalfLifeDistribution(group=group, hour=hour, ComparisonFile=group)
-BridgeRHalfLifeDifferenceHist(group=group, hour=hour, ComparisonFile=group)
-BridgeRHalfLifeDifferenceHist(group=group, hour=hour, ComparisonFile=group, BinwidthFig=0.1, OutputFig = "BridgeR_5_Half-life_difference_Histgram_01", BinwidthFig=0.1)
-BridgeRHalfLifeDifferenceBox(group=group, hour=hour, ComparisonFile=group)
+#BridgeRHalfLifeComparison(group=group, hour=hour, ComparisonFile=group)
+#BridgeRHalfLifeDistribution(group=group, hour=hour, ComparisonFile=group)
+#BridgeRHalfLifeDifferenceHist(group=group, hour=hour, ComparisonFile=group)
+#BridgeRHalfLifeDifferenceHist(group=group, hour=hour, ComparisonFile=group, BinwidthFig=0.1, OutputFig = "BridgeR_5_Half-life_difference_Histgram_01", BinwidthFig=0.1)
+#BridgeRHalfLifeDifferenceBox(group=group, hour=hour, ComparisonFile=group)
 
-BridgeRHalfLifeComparison(filename="BridgeR_4_half-life_calculation_house-keeping_genes.txt", OutputFig = "BridgeR_5_Half-life_comparison_house-keeping_genes", group=group, hour=hour, ComparisonFile=group)
-BridgeRHalfLifeDistribution(filename="BridgeR_4_half-life_calculation_house-keeping_genes.txt", OutputFig = "BridgeR_5_Half-life_distribution_house-keeping_genes", group=group, hour=hour, ComparisonFile=group)
-BridgeRHalfLifeDifferenceHist(filename="BridgeR_4_half-life_calculation_house-keeping_genes.txt", OutputFig = "BridgeR_5_Half-life_difference_Histgram_house-keeping_genes", group=group, hour=hour, ComparisonFile=group)
-BridgeRHalfLifeDifferenceHist(filename="BridgeR_4_half-life_calculation_house-keeping_genes.txt", OutputFig = "BridgeR_5_Half-life_difference_Histgram_01_house-keeping_genes", group=group, hour=hour, ComparisonFile=group, BinwidthFig=0.1)
-BridgeRHalfLifeDifferenceBox(filename="BridgeR_4_half-life_calculation_house-keeping_genes.txt", OutputFig = "BridgeR_5_Half-life_difference_Boxplot_house-keeping_genes", group=group, hour=hour, ComparisonFile=group)
+#BridgeRHalfLifeComparison(filename="BridgeR_4_half-life_calculation_house-keeping_genes.txt", OutputFig = "BridgeR_5_Half-life_comparison_house-keeping_genes", group=group, hour=hour, ComparisonFile=group)
+#BridgeRHalfLifeDistribution(filename="BridgeR_4_half-life_calculation_house-keeping_genes.txt", OutputFig = "BridgeR_5_Half-life_distribution_house-keeping_genes", group=group, hour=hour, ComparisonFile=group)
+#BridgeRHalfLifeDifferenceHist(filename="BridgeR_4_half-life_calculation_house-keeping_genes.txt", OutputFig = "BridgeR_5_Half-life_difference_Histgram_house-keeping_genes", group=group, hour=hour, ComparisonFile=group)
+#BridgeRHalfLifeDifferenceHist(filename="BridgeR_4_half-life_calculation_house-keeping_genes.txt", OutputFig = "BridgeR_5_Half-life_difference_Histgram_01_house-keeping_genes", group=group, hour=hour, ComparisonFile=group, BinwidthFig=0.1)
+#BridgeRHalfLifeDifferenceBox(filename="BridgeR_4_half-life_calculation_house-keeping_genes.txt", OutputFig = "BridgeR_5_Half-life_difference_Boxplot_house-keeping_genes", group=group, hour=hour, ComparisonFile=group)
 
+BridgeRHalfLifeComparison(filename="BridgeR_4_half-life_calculation_siStealth_siPUM1.txt", OutputFig = "BridgeR_5_Half-life_comparison_siStealth_siPUM1", group=group, hour=hour, ComparisonFile=group)
+BridgeRHalfLifeDistribution(filename="BridgeR_4_half-life_calculation_siStealth_siPUM1.txt", OutputFig = "BridgeR_5_Half-life_distribution_siStealth_siPUM1", group=group, hour=hour, ComparisonFile=group)
+BridgeRHalfLifeDifferenceHist(filename="BridgeR_4_half-life_calculation_siStealth_siPUM1.txt", OutputFig = "BridgeR_5_Half-life_difference_Histgram_siStealth_siPUM1", group=group, hour=hour, ComparisonFile=group)
+BridgeRHalfLifeDifferenceHist(filename="BridgeR_4_half-life_calculation_siStealth_siPUM1.txt", OutputFig = "BridgeR_5_Half-life_difference_Histgram_01_siStealth_siPUM1", group=group, hour=hour, ComparisonFile=group, BinwidthFig=0.1)
+BridgeRHalfLifeDifferenceBox(filename="BridgeR_4_half-life_calculation_siStealth_siPUM1.txt", OutputFig = "BridgeR_5_Half-life_difference_Boxplot_siStealth_siPUM1", group=group, hour=hour, ComparisonFile=group)

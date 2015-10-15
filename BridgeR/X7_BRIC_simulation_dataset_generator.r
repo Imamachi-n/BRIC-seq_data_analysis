@@ -10,7 +10,7 @@ setwd("C:/Users/Naoto/Documents/github/BRIC-seq_data_analysis/BridgeR/data")
 hour <- c(0,1,2,4,8,12)
 
 ###Draw_fitting_curve_function###
-BridgeRSimulationGenerator <- function(GeneNumber = 1000, hour = c(0,1,2,4,8,12)){
+BridgeRSimulationGenerator <- function(FileName = "BridgeR_0_Simulation_dataset.txt", GeneNumber = 10000, hour = c(0,1,2,4,8,12)){
     ###Import_library###
     #library(numbers)
     
@@ -38,16 +38,44 @@ BridgeRSimulationGenerator <- function(GeneNumber = 1000, hour = c(0,1,2,4,8,12)
     }
     
     ###Make_raw_expression_dataset(the number of RNA molecule)###
-    raw_rna_expression_table <- ceiling(relative_rna_remaining_table*1000000000)
+    #raw_rna_expression_table <- ceiling(relative_rna_remaining_table*1000000000)
     
-    sum_rna_expression <- NULL
-    for(x in 1:length(hour)){
-        exp <- sum(raw_rna_expression_table[,x])
-        sum_rna_expression <- append(sum_rna_expression, exp)
-    }
+    #sum_rna_expression <- NULL
+    #for(x in 1:length(hour)){
+    #    exp <- sum(raw_rna_expression_table[,x])
+    #    sum_rna_expression <- append(sum_rna_expression, exp)
+    #}
     
     #LCM <- mLCM(sum_rna_expression)
+    
+    ###Relative_expression_dataset###
+    sum_rna_expression <- NULL
+    time_point <- length(hour)
+    for(x in 1:time_point){
+        exp <- sum(relative_rna_remaining_table[,x])
+        sum_rna_expression <- append(sum_rna_expression, exp)
+    }
+    relative_expression_table <- NULL
+    flg <- 0
+    for(x in 1:time_point){
+        if(flg == 0){
+            relative_expression_table <- data.frame(relative_rna_remaining_table[,x])
+        }else{
+            relative_expression_table <- data.frame(relative_expression_table,relative_rna_remaining_table[,x]/sum_rna_expression[x]*gene_number)
+        }
+        flg <- 1
+    }
+    
+    hour_label <- NULL
+    for(x in hour){
+        hour_label <- append(hour_label, paste("T", x, sep=""))
+    }
+    colnames(relative_expression_table) <- hour_label
+    
+    ###Write_data###
+    write.table(relative_expression_table,file=FileName, sep="\t")
 }
 
 ###Test###
-BridgeRSimulationGenerator()
+BridgeRSimulationGenerator(FileName = "BridgeR_0_Simulation_dataset.txt", GeneNumber = 10000, hour = c(0,1,2,4,8,12))
+
