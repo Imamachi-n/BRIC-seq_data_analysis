@@ -79,9 +79,9 @@ BridgeRHalfLifeCalculation <- function(filename = "BridgeR_3_Normalized_expressi
                     adj_r_squared <- model_summary$adj.r.squared
                     residual_standard_err <- model_summary$sigma
                     half_life <- log(2)/coef
-                    if(coef < 0 || half_life >= 24){
-                        half_life <- 24
-                    }
+                    #if(coef < 0 || half_life >= 24){
+                    #    half_life <- 24
+                    #}
                     cat("Exponential_Decay_Model",coef,coef_error,coef_p,r_squared,adj_r_squared,residual_standard_err,half_life, sep="\t", file=output_file, append=T)
                 }else{
                     cat("few_data","NA","NA","NA","NA","NA","NA","NA", sep="\t", file=output_file, append=T)
@@ -97,4 +97,8 @@ BridgeRHalfLifeCalculation <- function(filename = "BridgeR_3_Normalized_expressi
 ###Test###
 #BridgeRHalfLifeCalculation(group=group, hour=hour)
 #BridgeRHalfLifeCalculation(filename="BridgeR_3_Normalized_expression_data_house-keeping_genes.txt", group=group, hour=hour, OutputFile = "BridgeR_4_half-life_calculation_house-keeping_genes.txt")
-BridgeRHalfLifeCalculation(filename="BridgeR_3_Normalized_expression_data_siStealth_siPUM1.txt", group=group, hour=hour, OutputFile = "BridgeR_4_half-life_calculation_siStealth_siPUM1.txt")
+#BridgeRHalfLifeCalculation(filename="BridgeR_3_Normalized_expression_data_siStealth_siPUM1.txt", group=group, hour=hour, OutputFile = "BridgeR_4_half-life_calculation_siStealth_siPUM1.txt")
+
+#BridgeRHalfLifeCalculation(filename="BridgeR_3_Normalized_simulation_data.txt", group=c("Simulation_A"), hour=hour, InforColumn = 1, OutputFile = "BridgeR_4_half-life_calculation_Simulation_A.txt")
+#BridgeRHalfLifeCalculation(filename="BridgeR_3_Normalized_simulation_B_data.txt", group=c("Simulation_B"), hour=hour, InforColumn = 1, OutputFile = "BridgeR_4_half-life_calculation_Simulation_B.txt")
+BridgeRHalfLifeCalculation(filename="BridgeR_3_Normalized_simulation_C_data.txt", group=c("Simulation_C"), hour=hour, InforColumn = 1, OutputFile = "BridgeR_4_half-life_calculation_Simulation_C.txt")

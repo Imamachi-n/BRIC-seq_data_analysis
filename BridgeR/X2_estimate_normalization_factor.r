@@ -163,7 +163,14 @@ BridgeRNormalizationFactors <- function(InputFile = "BridgeR_2_Stable_genes_data
 ###Test###
 #BridgeRStableGenesDataSet(filename="BridgeR_1_Relative_expression_data_siStealth_siPUM1.txt", group=group, hour=hour)
 #BridgeRNormalizationFactors(group=group, hour=hour)
+#BridgeRStableGenesDataSet(filename="BridgeR_1_Relative_expression_data_siStealth_siPUM1.txt", group=group, hour=hour)
 #BridgeRNormalizationFactors(InputFile = "BridgeR_2_Stable_genes_dataset",group=group, hour=hour)
 
 #BridgeRStableGenesDataSet(filename="BridgeR_0_Simulation_dataset_rpkm.txt", group=c("Simulation_A"), hour=hour, InforColumn = 1, OutputFile = "BridgeR_2_Stable_genes_dataset")
-BridgeRNormalizationFactors(InputFile = "BridgeR_2_Stable_genes_dataset",group=c("Simulation_A"), hour=hour, InforColumn = 1, NormFactor = "BridgeR_2_Normalizaion_factor_dataset", figname = "BridgeR_2_Normalizaion_factor_fig_dataset")
+#BridgeRNormalizationFactors(InputFile = "BridgeR_2_Stable_genes_dataset",group=c("Simulation_A"), hour=hour, InforColumn = 1, NormFactor = "BridgeR_2_Normalizaion_factor_dataset", figname = "BridgeR_2_Normalizaion_factor_fig_dataset")
+#BridgeRStableGenesDataSet(filename="BridgeR_0_Simulation_B_dataset_rpkm.txt", group=c("Simulation_B"), hour=hour, InforColumn = 1, OutputFile = "BridgeR_2_Stable_genes_dataset")
+#BridgeRNormalizationFactors(InputFile = "BridgeR_2_Stable_genes_dataset",group=c("Simulation_B"), hour=hour, InforColumn = 1, NormFactor = "BridgeR_2_Normalizaion_factor_dataset", figname = "BridgeR_2_Normalizaion_factor_fig_dataset")
+#BridgeRStableGenesDataSet(filename="BridgeR_0_Simulation_C_dataset_rpkm.txt", group=c("Simulation_C"), hour=hour, InforColumn = 1, OutputFile = "BridgeR_2_Stable_genes_dataset")
+#BridgeRNormalizationFactors(InputFile = "BridgeR_2_Stable_genes_dataset",group=c("Simulation_C"), hour=hour, InforColumn = 1, NormFactor = "BridgeR_2_Normalizaion_factor_dataset", figname = "BridgeR_2_Normalizaion_factor_fig_dataset")
+
+BridgeRNormalizationFactors(InputFile = "BridgeR_2_Stable_genes_dataset",group=c("siStealth_motif_rm","siPUM1_motif_rm"), hour=hour)

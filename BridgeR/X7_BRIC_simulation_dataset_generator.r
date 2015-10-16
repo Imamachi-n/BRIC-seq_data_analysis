@@ -19,6 +19,8 @@ BridgeRSimulationGenerator <- function(FileName = "BridgeR_0_Simulation_dataset"
     
     ###Make_artifical_half-life/decay_rate###
     art_half_life <- runif(gene_number,min=0.5,max=24)
+    #art_half_life <- append(art_half_life, runif(3500,min=0.5,max=6)) #B/2000, C/3500
+    #art_half_life <- append(art_half_life, runif(500,min=24,max=100)) #B/2000, C/500
     decay_model <- function(t){
         a <- log(2)/t
     }
@@ -94,5 +96,7 @@ BridgeRSimulationGenerator <- function(FileName = "BridgeR_0_Simulation_dataset"
 }
 
 ###Test###
-BridgeRSimulationGenerator(FileName = "BridgeR_0_Simulation_dataset", GeneNumber = 10000, hour = c(0,1,2,4,8,12))
+#BridgeRSimulationGenerator(FileName = "BridgeR_0_Simulation_dataset", GeneNumber = 10000, hour = c(0,1,2,4,8,12))
+#BridgeRSimulationGenerator(FileName = "BridgeR_0_Simulation_B_dataset", GeneNumber = 10000, hour = c(0,1,2,4,8,12))
+BridgeRSimulationGenerator(FileName = "BridgeR_0_Simulation_C_dataset", GeneNumber = 10000, hour = c(0,1,2,4,8,12))
 
