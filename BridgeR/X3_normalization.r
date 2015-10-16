@@ -107,5 +107,12 @@ BridgeRNormalization <- function(filename = "BridgeR_1_Relative_expression_data.
 
 #BridgeRNormalization(filename = "BridgeR_0_Simulation_dataset_rpkm.txt", group=c("Simulation_A"), hour=hour, InforColumn = 1, OutputFile = "BridgeR_3_Normalized_simulation_data.txt")
 #BridgeRNormalization(filename = "BridgeR_0_Simulation_B_dataset_rpkm.txt", group=c("Simulation_B"), hour=hour, InforColumn = 1, OutputFile = "BridgeR_3_Normalized_simulation_B_data.txt")
-BridgeRNormalization(filename = "BridgeR_0_Simulation_C_dataset_rpkm.txt", group=c("Simulation_C"), hour=hour, InforColumn = 1, OutputFile = "BridgeR_3_Normalized_simulation_C_data.txt")
+#BridgeRNormalization(filename = "BridgeR_0_Simulation_C_dataset_rpkm.txt", group=c("Simulation_C"), hour=hour, InforColumn = 1, OutputFile = "BridgeR_3_Normalized_simulation_C_data.txt")
 
+#BridgeRNormalization(filename = "BridgeR_0_Simulation_TypeA_dataset_rpkm.txt", group=c("Simulation_TypeA"), hour=hour, InforColumn = 1, OutputFile = "BridgeR_3_Normalized_simulation_TypeA_data.txt")
+#BridgeRNormalization(filename = "BridgeR_0_Simulation_TypeB_dataset_rpkm.txt", group=c("Simulation_TypeB"), hour=hour, InforColumn = 1, OutputFile = "BridgeR_3_Normalized_simulation_TypeB_data.txt")
+#BridgeRNormalization(filename = "BridgeR_0_Simulation_TypeC_dataset_rpkm.txt", group=c("Simulation_TypeC"), hour=hour, InforColumn = 1, OutputFile = "BridgeR_3_Normalized_simulation_TypeC_data.txt")
+
+BridgeRNormalization(filename = "BridgeR_0_Simulation_Test1_None_dataset_rpkm.txt", group=c("Simulation_Test1_None"), hour=hour, InforColumn = 1, OutputFile = "BridgeR_3_Normalized_simulation_Test1_None_data.txt")
+BridgeRNormalization(filename = "BridgeR_0_Simulation_Test1_Stable_dataset_rpkm.txt", group=c("Simulation_Test1_Stable"), hour=hour, InforColumn = 1, OutputFile = "BridgeR_3_Normalized_simulation_Test1_Stable_data.txt")
+BridgeRNormalization(filename = "BridgeR_0_Simulation_Test1_Unstable_dataset_rpkm.txt", group=c("Simulation_Test1_Unstable"), hour=hour, InforColumn = 1, OutputFile = "BridgeR_3_Normalized_simulation_Test1_Unstable_data.txt")

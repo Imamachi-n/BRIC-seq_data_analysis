@@ -16,7 +16,7 @@ files <- c("C:/Users/Naoto/Documents/github/BRIC-seq_data_analysis/BridgeR/data/
            "C:/Users/Naoto/Documents/github/BRIC-seq_data_analysis/BridgeR/data/siPUM1_genes_RefSeq_result_mRNA.fpkm_table")
 
 ###Estimate_normalization_factor_function###
-BridgeRNormalizationFactorsAll <- function(InputFile = "BridgeR_2_Stable_genes_dataset", group, hour, InforColumn = 4, YMin = -2, YMax = 2, figname = "BridgeR_2_Normalizaion_factor_fig_all_dataset"){
+BridgeRNormalizationFactorsAll <- function(InputFile, group, hour, InforColumn = 4, YMin = -2, YMax = 2, figname = "BridgeR_2_Normalizaion_factor_fig_all_dataset"){
     ###Import_library###
     library(data.table)
     library(ggplot2)
@@ -30,9 +30,6 @@ BridgeRNormalizationFactorsAll <- function(InputFile = "BridgeR_2_Stable_genes_d
         #input_filename <- paste(InputFile,a,"_",group[a],".txt", sep="")
         input_filename <- InputFile
         input_file <- fread(input_filename, header=T)
-        
-        ###Output_files###
-        output_filename <- paste(NormFactor,a,"_",group[a],".txt", sep="")
         
         hour_label <- NULL
         for(x in hour){
@@ -111,5 +108,12 @@ BridgeRNormalizationFactorsAll <- function(InputFile = "BridgeR_2_Stable_genes_d
 #BridgeRNormalizationFactors(InputFile = "BridgeR_2_All_genes_dataset",group=group, hour=hour, figname = "BridgeR_2_Normalizaion_factor_fig_dataset_test")
 #BridgeRNormalizationFactors(InputFile = "siStealth_genes_RefSeq_result_mRNA.fpkm_table",group=group, hour=hour, figname = "BridgeR_2_Normalizaion_factor_fig_dataset_test_siStealth")
 
-BridgeRNormalizationFactorsAll(InputFile = "BridgeR_0_Simulation_dataset_rpkm.txt", YMin=-7, YMax = 0.5, group=c("Simulation_A"), hour=hour, InforColumn = 1, figname = "BridgeR_2_Normalizaion_factor_fig_all_dataset")
+#BridgeRNormalizationFactorsAll(InputFile = "BridgeR_0_Simulation_dataset_rpkm.txt", YMin=-7, YMax = 0.5, group=c("Simulation_A"), hour=hour, InforColumn = 1, figname = "BridgeR_2_Normalizaion_factor_fig_all_dataset")
 
+#BridgeRNormalizationFactorsAll(InputFile = "BridgeR_0_Simulation_dataset_rpkm.txt", YMin=-7, YMax = 0.5, group=c("Simulation_A"), hour=hour, InforColumn = 1, figname = "BridgeR_2_Normalizaion_factor_fig_all_dataset")
+#BridgeRNormalizationFactorsAll(InputFile = "BridgeR_0_Simulation_TypeA_dataset_rpkm.txt", YMin=-7, YMax = 0.5, group=c("Simulation_TypeA"), hour=hour, InforColumn = 1, figname = "BridgeR_2_Normalizaion_factor_fig_all_dataset")
+#BridgeRNormalizationFactorsAll(InputFile = "BridgeR_0_Simulation_TypeB_dataset_rpkm.txt", YMin=-7, YMax = 0.5, group=c("Simulation_TypeB"), hour=hour, InforColumn = 1, figname = "BridgeR_2_Normalizaion_factor_fig_all_dataset")
+
+BridgeRNormalizationFactorsAll(InputFile = "BridgeR_0_Simulation_Test1_None_dataset_rpkm.txt", YMin=-7, YMax = 0.5, group=c("Simulation_Test1_None"), hour=hour, InforColumn = 1, figname = "BridgeR_2_Normalizaion_factor_fig_all_dataset")
+BridgeRNormalizationFactorsAll(InputFile = "BridgeR_0_Simulation_Test1_Stable_dataset_rpkm.txt", YMin=-7, YMax = 0.5, group=c("Simulation_Test1_Stable"), hour=hour, InforColumn = 1, figname = "BridgeR_2_Normalizaion_factor_fig_all_dataset")
+BridgeRNormalizationFactorsAll(InputFile = "BridgeR_0_Simulation_Test1_Unstable_dataset_rpkm.txt", YMin=-7, YMax = 0.5, group=c("Simulation_Test1_Unstable"), hour=hour, InforColumn = 1, figname = "BridgeR_2_Normalizaion_factor_fig_all_dataset")

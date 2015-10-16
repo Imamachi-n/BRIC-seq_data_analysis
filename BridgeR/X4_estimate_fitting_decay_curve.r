@@ -82,6 +82,9 @@ BridgeRHalfLifeCalculation <- function(filename = "BridgeR_3_Normalized_expressi
                     #if(coef < 0 || half_life >= 24){
                     #    half_life <- 24
                     #}
+                    if(coef < 0){
+                        half_life <- Inf
+                    }
                     cat("Exponential_Decay_Model",coef,coef_error,coef_p,r_squared,adj_r_squared,residual_standard_err,half_life, sep="\t", file=output_file, append=T)
                 }else{
                     cat("few_data","NA","NA","NA","NA","NA","NA","NA", sep="\t", file=output_file, append=T)
@@ -101,4 +104,12 @@ BridgeRHalfLifeCalculation <- function(filename = "BridgeR_3_Normalized_expressi
 
 #BridgeRHalfLifeCalculation(filename="BridgeR_3_Normalized_simulation_data.txt", group=c("Simulation_A"), hour=hour, InforColumn = 1, OutputFile = "BridgeR_4_half-life_calculation_Simulation_A.txt")
 #BridgeRHalfLifeCalculation(filename="BridgeR_3_Normalized_simulation_B_data.txt", group=c("Simulation_B"), hour=hour, InforColumn = 1, OutputFile = "BridgeR_4_half-life_calculation_Simulation_B.txt")
-BridgeRHalfLifeCalculation(filename="BridgeR_3_Normalized_simulation_C_data.txt", group=c("Simulation_C"), hour=hour, InforColumn = 1, OutputFile = "BridgeR_4_half-life_calculation_Simulation_C.txt")
+#BridgeRHalfLifeCalculation(filename="BridgeR_3_Normalized_simulation_C_data.txt", group=c("Simulation_C"), hour=hour, InforColumn = 1, OutputFile = "BridgeR_4_half-life_calculation_Simulation_C.txt")
+
+#BridgeRHalfLifeCalculation(filename="BridgeR_3_Normalized_simulation_TypeA_data.txt", group=c("Simulation_TypeA"), hour=hour, InforColumn = 1, OutputFile = "BridgeR_4_half-life_calculation_Simulation_TypeA.txt")
+#BridgeRHalfLifeCalculation(filename="BridgeR_3_Normalized_simulation_TypeB_data.txt", group=c("Simulation_TypeB"), hour=hour, InforColumn = 1, OutputFile = "BridgeR_4_half-life_calculation_Simulation_TypeB.txt")
+#BridgeRHalfLifeCalculation(filename="BridgeR_3_Normalized_simulation_TypeC_data.txt", group=c("Simulation_TypeC"), hour=hour, InforColumn = 1, OutputFile = "BridgeR_4_half-life_calculation_Simulation_TypeC.txt")
+
+BridgeRHalfLifeCalculation(filename="BridgeR_3_Normalized_simulation_Test1_None_data.txt", group=c("Simulation_Test1_None"), hour=hour, InforColumn = 1, OutputFile = "BridgeR_4_half-life_calculation_Simulation_Test1_None.txt")
+BridgeRHalfLifeCalculation(filename="BridgeR_3_Normalized_simulation_Test1_Stable_data.txt", group=c("Simulation_Test1_Stable"), hour=hour, InforColumn = 1, OutputFile = "BridgeR_4_half-life_calculation_Simulation_Test1_Stable.txt")
+BridgeRHalfLifeCalculation(filename="BridgeR_3_Normalized_simulation_Test1_Unstable_data.txt", group=c("Simulation_Test1_Unstable"), hour=hour, InforColumn = 1, OutputFile = "BridgeR_4_half-life_calculation_Simulation_Test1_Unstable.txt")

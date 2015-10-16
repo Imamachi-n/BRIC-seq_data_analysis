@@ -173,4 +173,18 @@ BridgeRNormalizationFactors <- function(InputFile = "BridgeR_2_Stable_genes_data
 #BridgeRStableGenesDataSet(filename="BridgeR_0_Simulation_C_dataset_rpkm.txt", group=c("Simulation_C"), hour=hour, InforColumn = 1, OutputFile = "BridgeR_2_Stable_genes_dataset")
 #BridgeRNormalizationFactors(InputFile = "BridgeR_2_Stable_genes_dataset",group=c("Simulation_C"), hour=hour, InforColumn = 1, NormFactor = "BridgeR_2_Normalizaion_factor_dataset", figname = "BridgeR_2_Normalizaion_factor_fig_dataset")
 
-BridgeRNormalizationFactors(InputFile = "BridgeR_2_Stable_genes_dataset",group=c("siStealth_motif_rm","siPUM1_motif_rm"), hour=hour)
+#BridgeRNormalizationFactors(InputFile = "BridgeR_2_Stable_genes_dataset",group=c("siStealth_motif_rm","siPUM1_motif_rm"), hour=hour)
+
+#BridgeRStableGenesDataSet(filename="BridgeR_0_Simulation_TypeA_dataset_rpkm.txt", group=c("Simulation_TypeA"), hour=hour, InforColumn = 1, OutputFile = "BridgeR_2_Stable_genes_dataset")
+#BridgeRNormalizationFactors(InputFile = "BridgeR_2_Stable_genes_dataset",group=c("Simulation_TypeA"), hour=hour, InforColumn = 1, NormFactor = "BridgeR_2_Normalizaion_factor_dataset", figname = "BridgeR_2_Normalizaion_factor_fig_dataset")
+#BridgeRStableGenesDataSet(filename="BridgeR_0_Simulation_TypeB_dataset_rpkm.txt", group=c("Simulation_TypeB"), hour=hour, InforColumn = 1, OutputFile = "BridgeR_2_Stable_genes_dataset")
+#BridgeRNormalizationFactors(InputFile = "BridgeR_2_Stable_genes_dataset",group=c("Simulation_TypeB"), hour=hour, InforColumn = 1, NormFactor = "BridgeR_2_Normalizaion_factor_dataset", figname = "BridgeR_2_Normalizaion_factor_fig_dataset")
+#BridgeRStableGenesDataSet(filename="BridgeR_0_Simulation_TypeC_dataset_rpkm.txt", group=c("Simulation_TypeC"), hour=hour, InforColumn = 1, OutputFile = "BridgeR_2_Stable_genes_dataset")
+#BridgeRNormalizationFactors(InputFile = "BridgeR_2_Stable_genes_dataset",group=c("Simulation_TypeC"), hour=hour, InforColumn = 1, NormFactor = "BridgeR_2_Normalizaion_factor_dataset", figname = "BridgeR_2_Normalizaion_factor_fig_dataset")
+
+BridgeRStableGenesDataSet(filename="BridgeR_0_Simulation_Test1_None_dataset_rpkm.txt", group=c("Simulation_Test1_None"), hour=hour, InforColumn = 1, OutputFile = "BridgeR_2_Stable_genes_dataset")
+BridgeRNormalizationFactors(InputFile = "BridgeR_2_Stable_genes_dataset",group=c("Simulation_Test1_None"), hour=hour, InforColumn = 1, NormFactor = "BridgeR_2_Normalizaion_factor_dataset", figname = "BridgeR_2_Normalizaion_factor_fig_dataset")
+BridgeRStableGenesDataSet(filename="BridgeR_0_Simulation_Test1_Stable_dataset_rpkm.txt", group=c("Simulation_Test1_Stable"), hour=hour, InforColumn = 1, OutputFile = "BridgeR_2_Stable_genes_dataset")
+BridgeRNormalizationFactors(InputFile = "BridgeR_2_Stable_genes_dataset",group=c("Simulation_Test1_Stable"), hour=hour, InforColumn = 1, NormFactor = "BridgeR_2_Normalizaion_factor_dataset", figname = "BridgeR_2_Normalizaion_factor_fig_dataset")
+BridgeRStableGenesDataSet(filename="BridgeR_0_Simulation_Test1_Unstable_dataset_rpkm.txt", group=c("Simulation_Test1_Unstable"), hour=hour, InforColumn = 1, OutputFile = "BridgeR_2_Stable_genes_dataset")
+BridgeRNormalizationFactors(InputFile = "BridgeR_2_Stable_genes_dataset",group=c("Simulation_Test1_Unstable"), hour=hour, InforColumn = 1, NormFactor = "BridgeR_2_Normalizaion_factor_dataset", figname = "BridgeR_2_Normalizaion_factor_fig_dataset")

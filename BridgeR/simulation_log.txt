@@ -1,0 +1,47 @@
+TypeA: art_half_life <- runif(10000,min=0.5,max=24)
+BridgeRSimulationGenerator(FileName = "BridgeR_0_Simulation_TypeA_dataset", minHalf = 0.5, maxHalf = 24, GeneNumber = 10000, hour = c(0,1,2,4,8,12))
+BridgeRStableGenesDataSet(filename="BridgeR_0_Simulation_TypeA_dataset_rpkm.txt", group=c("Simulation_TypeA"), hour=hour, InforColumn = 1, OutputFile = "BridgeR_2_Stable_genes_dataset")
+BridgeRNormalizationFactors(InputFile = "BridgeR_2_Stable_genes_dataset",group=c("Simulation_TypeA"), hour=hour, InforColumn = 1, NormFactor = "BridgeR_2_Normalizaion_factor_dataset", figname = "BridgeR_2_Normalizaion_factor_fig_dataset")
+BridgeRNormalizationFactorsAll(InputFile = "BridgeR_0_Simulation_TypeA_dataset_rpkm.txt", YMin=-7, YMax = 0.5, group=c("Simulation_TypeA"), hour=hour, InforColumn = 1, figname = "BridgeR_2_Normalizaion_factor_fig_all_dataset")
+BridgeRNormalization(filename = "BridgeR_0_Simulation_TypeA_dataset_rpkm.txt", group=c("Simulation_TypeA"), hour=hour, InforColumn = 1, OutputFile = "BridgeR_3_Normalized_simulation_TypeA_data.txt")
+BridgeRHalfLifeCalculation(filename="BridgeR_3_Normalized_simulation_TypeA_data.txt", group=c("Simulation_TypeA"), hour=hour, InforColumn = 1, OutputFile = "BridgeR_4_half-life_calculation_Simulation_TypeA.txt")
+
+TypeB: art_half_life <- runif(10000,min=0.5,max=48)
+BridgeRSimulationGenerator(FileName = "BridgeR_0_Simulation_TypeB_dataset", minHalf = 0.5, maxHalf = 48, GeneNumber = 10000, hour = c(0,1,2,4,8,12))
+BridgeRStableGenesDataSet(filename="BridgeR_0_Simulation_TypeB_dataset_rpkm.txt", group=c("Simulation_TypeB"), hour=hour, InforColumn = 1, OutputFile = "BridgeR_2_Stable_genes_dataset")
+BridgeRNormalizationFactors(InputFile = "BridgeR_2_Stable_genes_dataset",group=c("Simulation_TypeB"), hour=hour, InforColumn = 1, NormFactor = "BridgeR_2_Normalizaion_factor_dataset", figname = "BridgeR_2_Normalizaion_factor_fig_dataset")
+BridgeRNormalizationFactorsAll(InputFile = "BridgeR_0_Simulation_TypeB_dataset_rpkm.txt", YMin=-7, YMax = 0.5, group=c("Simulation_TypeB"), hour=hour, InforColumn = 1, figname = "BridgeR_2_Normalizaion_factor_fig_all_dataset")
+BridgeRNormalization(filename = "BridgeR_0_Simulation_TypeB_dataset_rpkm.txt", group=c("Simulation_TypeB"), hour=hour, InforColumn = 1, OutputFile = "BridgeR_3_Normalized_simulation_TypeB_data.txt")
+BridgeRHalfLifeCalculation(filename="BridgeR_3_Normalized_simulation_TypeB_data.txt", group=c("Simulation_TypeB"), hour=hour, InforColumn = 1, OutputFile = "BridgeR_4_half-life_calculation_Simulation_TypeB.txt")
+
+TypeC: art_half_life <- rgamma(10000,shape=2,scale=4)
+BridgeRSimulationGenerator(FileName = "BridgeR_0_Simulation_TypeC_dataset", minHalf = 0.5, maxHalf = 48, GeneNumber = 10000, hour = c(0,1,2,4,8,12))
+BridgeRStableGenesDataSet(filename="BridgeR_0_Simulation_TypeC_dataset_rpkm.txt", group=c("Simulation_TypeC"), hour=hour, InforColumn = 1, OutputFile = "BridgeR_2_Stable_genes_dataset")
+BridgeRNormalizationFactors(InputFile = "BridgeR_2_Stable_genes_dataset",group=c("Simulation_TypeC"), hour=hour, InforColumn = 1, NormFactor = "BridgeR_2_Normalizaion_factor_dataset", figname = "BridgeR_2_Normalizaion_factor_fig_dataset")
+BridgeRNormalization(filename = "BridgeR_0_Simulation_TypeC_dataset_rpkm.txt", group=c("Simulation_TypeC"), hour=hour, InforColumn = 1, OutputFile = "BridgeR_3_Normalized_simulation_TypeC_data.txt")
+BridgeRHalfLifeCalculation(filename="BridgeR_3_Normalized_simulation_TypeC_data.txt", group=c("Simulation_TypeC"), hour=hour, InforColumn = 1, OutputFile = "BridgeR_4_half-life_calculation_Simulation_TypeC.txt")
+
+--------------------------------------------------------
+Test1: 
+BridgeRSimulationGenerator(FileName = "BridgeR_0_Simulation_Test1_None_dataset", minHalf = 0.5, maxHalf = 48, GeneNumber = 10000, hour = c(0,1,2,4,8,12))
+BridgeRSimulationGenerator(test = "stable", FileName = "BridgeR_0_Simulation_Test1_Stable_dataset", minHalf = 0.5, maxHalf = 48, GeneNumber = 10000, hour = c(0,1,2,4,8,12))
+BridgeRSimulationGenerator(test = "unstable", FileName = "BridgeR_0_Simulation_Test1_Unstable_dataset", minHalf = 0.5, maxHalf = 48, GeneNumber = 10000, hour = c(0,1,2,4,8,12))
+
+BridgeRStableGenesDataSet(filename="BridgeR_0_Simulation_Test1_None_dataset_rpkm.txt", group=c("Simulation_Test1_None"), hour=hour, InforColumn = 1, OutputFile = "BridgeR_2_Stable_genes_dataset")
+BridgeRNormalizationFactors(InputFile = "BridgeR_2_Stable_genes_dataset",group=c("Simulation_Test1_None"), hour=hour, InforColumn = 1, NormFactor = "BridgeR_2_Normalizaion_factor_dataset", figname = "BridgeR_2_Normalizaion_factor_fig_dataset")
+BridgeRStableGenesDataSet(filename="BridgeR_0_Simulation_Test1_Stable_dataset_rpkm.txt", group=c("Simulation_Test1_Stable"), hour=hour, InforColumn = 1, OutputFile = "BridgeR_2_Stable_genes_dataset")
+BridgeRNormalizationFactors(InputFile = "BridgeR_2_Stable_genes_dataset",group=c("Simulation_Test1_Stable"), hour=hour, InforColumn = 1, NormFactor = "BridgeR_2_Normalizaion_factor_dataset", figname = "BridgeR_2_Normalizaion_factor_fig_dataset")
+BridgeRStableGenesDataSet(filename="BridgeR_0_Simulation_Test1_Unstable_dataset_rpkm.txt", group=c("Simulation_Test1_Unstable"), hour=hour, InforColumn = 1, OutputFile = "BridgeR_2_Stable_genes_dataset")
+BridgeRNormalizationFactors(InputFile = "BridgeR_2_Stable_genes_dataset",group=c("Simulation_Test1_Unstable"), hour=hour, InforColumn = 1, NormFactor = "BridgeR_2_Normalizaion_factor_dataset", figname = "BridgeR_2_Normalizaion_factor_fig_dataset")
+
+BridgeRNormalizationFactorsAll(InputFile = "BridgeR_0_Simulation_Test1_None_dataset_rpkm.txt", YMin=-7, YMax = 0.5, group=c("Simulation_Test1_None"), hour=hour, InforColumn = 1, figname = "BridgeR_2_Normalizaion_factor_fig_all_dataset")
+BridgeRNormalizationFactorsAll(InputFile = "BridgeR_0_Simulation_Test1_Stable_dataset_rpkm.txt", YMin=-7, YMax = 0.5, group=c("Simulation_Test1_Stable"), hour=hour, InforColumn = 1, figname = "BridgeR_2_Normalizaion_factor_fig_all_dataset")
+BridgeRNormalizationFactorsAll(InputFile = "BridgeR_0_Simulation_Test1_Unstable_dataset_rpkm.txt", YMin=-7, YMax = 0.5, group=c("Simulation_Test1_Unstable"), hour=hour, InforColumn = 1, figname = "BridgeR_2_Normalizaion_factor_fig_all_dataset")
+
+BridgeRNormalization(filename = "BridgeR_0_Simulation_Test1_None_dataset_rpkm.txt", group=c("Simulation_Test1_None"), hour=hour, InforColumn = 1, OutputFile = "BridgeR_3_Normalized_simulation_Test1_None_data.txt")
+BridgeRNormalization(filename = "BridgeR_0_Simulation_Test1_Stable_dataset_rpkm.txt", group=c("Simulation_Test1_Stable"), hour=hour, InforColumn = 1, OutputFile = "BridgeR_3_Normalized_simulation_Test1_Stable_data.txt")
+BridgeRNormalization(filename = "BridgeR_0_Simulation_Test1_Unstable_dataset_rpkm.txt", group=c("Simulation_Test1_Unstable"), hour=hour, InforColumn = 1, OutputFile = "BridgeR_3_Normalized_simulation_Test1_Unstable_data.txt")
+
+BridgeRHalfLifeCalculation(filename="BridgeR_3_Normalized_simulation_Test1_None_data.txt", group=c("Simulation_Test1_None"), hour=hour, InforColumn = 1, OutputFile = "BridgeR_4_half-life_calculation_Simulation_Test1_None.txt")
+BridgeRHalfLifeCalculation(filename="BridgeR_3_Normalized_simulation_Test1_Stable_data.txt", group=c("Simulation_Test1_Stable"), hour=hour, InforColumn = 1, OutputFile = "BridgeR_4_half-life_calculation_Simulation_Test1_Stable.txt")
+BridgeRHalfLifeCalculation(filename="BridgeR_3_Normalized_simulation_Test1_Unstable_data.txt", group=c("Simulation_Test1_Unstable"), hour=hour, InforColumn = 1, OutputFile = "BridgeR_4_half-life_calculation_Simulation_Test1_Unstable.txt")

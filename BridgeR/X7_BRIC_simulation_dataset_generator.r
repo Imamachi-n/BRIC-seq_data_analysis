@@ -10,7 +10,7 @@ setwd("C:/Users/Naoto/Documents/github/BRIC-seq_data_analysis/BridgeR/data")
 hour <- c(0,1,2,4,8,12)
 
 ###Draw_fitting_curve_function###
-BridgeRSimulationGenerator <- function(FileName = "BridgeR_0_Simulation_dataset", GeneNumber = 10000, hour = c(0,1,2,4,8,12)){
+BridgeRSimulationGenerator <- function(test = "none", FileName = "BridgeR_0_Simulation_dataset", minHalf = 0.5, maxHalf = 48, GeneNumber = 10000, hour = c(0,1,2,4,8,12)){
     ###Import_library###
     #library(numbers)
     
@@ -18,9 +18,31 @@ BridgeRSimulationGenerator <- function(FileName = "BridgeR_0_Simulation_dataset"
     gene_number = GeneNumber
     
     ###Make_artifical_half-life/decay_rate###
-    art_half_life <- runif(gene_number,min=0.5,max=24)
+    art_half_life <- runif(gene_number,min=minHalf,max=maxHalf)
+    art_half_life_0_24 <- art_half_life[art_half_life<=24]
+    art_half_life_24_48 <- art_half_life[art_half_life>=24]
+    if(test == "stable"){
+        r_36_48 <- runif(1000,min=36,max=48)
+        sample_0_24 <- sample(art_half_life_0_24,size=1000)
+        for(x in 1:1000){
+            index_number <- which(art_half_life_0_24 == sample_0_24[x])
+            art_half_life_0_24[index_number] = r_36_48[x]
+        }
+    }else if(test == "unstable"){
+        r_0_12 <- runif(1000,min=0.5,max=12)
+        sample_24_48 <- sample(art_half_life_24_48,size=1000)
+        for(x in 1:1000){
+            index_number <- which(art_half_life_24_48 == sample_24_48[x])
+            art_half_life_24_48[index_number] = r_0_12[x]
+        }
+    }
+    art_half_life <- append(art_half_life_0_24,art_half_life_24_48)
+    #art_half_life <- rgamma(gene_number,shape=2,scale=4)
     #art_half_life <- append(art_half_life, runif(3500,min=0.5,max=6)) #B/2000, C/3500
     #art_half_life <- append(art_half_life, runif(500,min=24,max=100)) #B/2000, C/500
+    
+    
+    
     decay_model <- function(t){
         a <- log(2)/t
     }
@@ -98,5 +120,12 @@ BridgeRSimulationGenerator <- function(FileName = "BridgeR_0_Simulation_dataset"
 ###Test###
 #BridgeRSimulationGenerator(FileName = "BridgeR_0_Simulation_dataset", GeneNumber = 10000, hour = c(0,1,2,4,8,12))
 #BridgeRSimulationGenerator(FileName = "BridgeR_0_Simulation_B_dataset", GeneNumber = 10000, hour = c(0,1,2,4,8,12))
-BridgeRSimulationGenerator(FileName = "BridgeR_0_Simulation_C_dataset", GeneNumber = 10000, hour = c(0,1,2,4,8,12))
+#BridgeRSimulationGenerator(FileName = "BridgeR_0_Simulation_C_dataset", GeneNumber = 10000, hour = c(0,1,2,4,8,12))
 
+#BridgeRSimulationGenerator(FileName = "BridgeR_0_Simulation_TypeA_dataset", minHalf = 0.5, maxHalf = 24, GeneNumber = 10000, hour = c(0,1,2,4,8,12))
+#BridgeRSimulationGenerator(FileName = "BridgeR_0_Simulation_TypeB_dataset", minHalf = 0.5, maxHalf = 48, GeneNumber = 10000, hour = c(0,1,2,4,8,12))
+#BridgeRSimulationGenerator(FileName = "BridgeR_0_Simulation_TypeC_dataset", minHalf = 0.5, maxHalf = 48, GeneNumber = 10000, hour = c(0,1,2,4,8,12))
+
+BridgeRSimulationGenerator(FileName = "BridgeR_0_Simulation_Test1_None_dataset", minHalf = 0.5, maxHalf = 48, GeneNumber = 10000, hour = c(0,1,2,4,8,12))
+BridgeRSimulationGenerator(test = "stable", FileName = "BridgeR_0_Simulation_Test1_Stable_dataset", minHalf = 0.5, maxHalf = 48, GeneNumber = 10000, hour = c(0,1,2,4,8,12))
+BridgeRSimulationGenerator(test = "unstable", FileName = "BridgeR_0_Simulation_Test1_Unstable_dataset", minHalf = 0.5, maxHalf = 48, GeneNumber = 10000, hour = c(0,1,2,4,8,12))
