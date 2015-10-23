@@ -30,7 +30,7 @@ test_q <- function(x,y){
     return(q_table)
 }
 
-BridgeRDatasetCheckerBoxplot <- function(InputFile, group, hour, InforColumn=4, OutputFile="BridgeR_2_Relative_RPKM_distribution"){
+BridgeRDatasetChecker <- function(InputFile, group, hour, InforColumn=4, OutputFile="BridgeR_2_Relative_RPKM_distribution"){
     ###Import_library###
     library(data.table)
     library(ggplot2)
@@ -216,5 +216,5 @@ BridgeRDatasetCheckerBoxplot <- function(InputFile, group, hour, InforColumn=4, 
 
 
 ###Test###
-setwd("C:/Users/Naoto/Documents/github/BRIC-seq_data_analysis/BridgeR/data/BridgeR_siStealth_siPUM2_ver1/time_course_0_1_2_4_8_12h")
-BridgeRDatasetCheckerBoxplot(InputFile="BridgeR_1_Relative_expression_data_siCTRL_siPUM2_compatible.txt", group=c("siCTRL","siPUM2"), hour=c(0,1,2,4,8,12))
+#setwd("C:/Users/Naoto/Documents/github/BRIC-seq_data_analysis/BridgeR/data/BridgeR_siStealth_siPUM2_ver1/time_course_0_1_2_4_8_12h")
+#BridgeRDatasetChecker(InputFile="BridgeR_1_Relative_expression_data_siCTRL_siPUM2_compatible.txt", group=c("siCTRL","siPUM2"), hour=c(0,1,2,4,8,12))
