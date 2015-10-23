@@ -30,7 +30,7 @@ test_q <- function(x,y){
     return(q_table)
 }
 
-BridgeRDatasetChecker <- function(InputFile, group, hour, InforColumn=4, OutputFile="BridgeR_2_Relative_RPKM_distribution"){
+BridgeRDatasetCheckerBoxplot <- function(InputFile, group, hour, InforColumn=4, OutputFile="BridgeR_2_Relative_RPKM_distribution"){
     ###Import_library###
     library(data.table)
     library(ggplot2)
@@ -54,6 +54,7 @@ BridgeRDatasetChecker <- function(InputFile, group, hour, InforColumn=4, OutputF
     
     ###Boxplot_for_each_sample###
     merge_fig_data <- NULL
+    merge_fig_percentile_data <- NULL
     for(a in 1:sample_size){
         ###Information&exp_data column###
         infor_st <- 1 + (a - 1)*(time_points + InforColumn)
@@ -77,6 +78,18 @@ BridgeRDatasetChecker <- function(InputFile, group, hour, InforColumn=4, OutputF
         ###Prepare_exp_data###
         exp_st <- exp_st + 1
         exp_data <- test_data[,exp_st:exp_ed,with=F] #except time0
+        
+        exp_percentile_data <- NULL
+        time_points_for_fig <- time_points - 1
+        for(x in 1:time_points_for_fig){
+            q_data <- test_q(log10(exp_data[[x]]),hour_label[x])
+            if(x == 1){
+                exp_percentile_data <- q_data
+            }else{
+                exp_percentile_data <- rbind(exp_percentile_data, q_data)
+            }
+        }
+            
         exp_data <- t(exp_data) #Inverse
         exp_data <- factor(exp_data)
         exp_data <- as.numeric(as.character(exp_data)) #exp_data for fig_data
@@ -90,8 +103,10 @@ BridgeRDatasetChecker <- function(InputFile, group, hour, InforColumn=4, OutputF
         fig_data <- data.frame(exp=exp_data, label=factor(label_data))
         if(a == 1){
             merge_fig_data <- fig_data
+            merge_fig_percentile_data <- exp_percentile_data
         }else{
             merge_fig_data <- rbind(merge_fig_data, fig_data)
+            merge_fig_percentile_data <- rbind(merge_fig_percentile_data, exp_percentile_data)
         }
         
         ###fig_name###
@@ -108,6 +123,41 @@ BridgeRDatasetChecker <- function(InputFile, group, hour, InforColumn=4, OutputF
         plot(p)
         dev.off() #close_fig
         plot.new()
+        
+        ###fig_name2###
+        fig_name <- paste(OutputFile,"_Density_",group[a],".png",sep="")
+        png(filename=fig_name,width = 1300, height = 1000)
+        
+        ###fig_plot2###
+        p <- ggplot()
+        p <- p + layer(data=fig_data,
+                       mapping=aes(x=exp,colour=label),
+                       geom="line",
+                       stat="density",
+                       size=1.2)
+        p <- p + xlim(-2,2) + ylim(0,7)
+        plot(p)
+        dev.off() #close_fig
+        plot.new()
+        
+        ###fig_name3###
+        fig_name <- paste(OutputFile,"_Point_",group[a],".png",sep="")
+        fig_width <- 120*(time_points-1)
+        png(filename=fig_name,width = fig_width, height = 1200)
+        
+        ###fig_plot3###
+        p <- ggplot()
+        p <- p + layer(data=exp_percentile_data,
+                       mapping=aes(x=name, y=q, colour=factor(factor)),
+                       geom="point",
+                       size=5,
+                       shape=19)
+        p <- p + xlab("") + ylab("Relative RPKM (Time0 = 1)")
+        p <- p + ylim(-1.5,1.5)
+        plot(p)
+        dev.off() #close_fig
+        plot.new()
+        
     }
     
     ###Boxplot_for_all_sample###
@@ -134,8 +184,37 @@ BridgeRDatasetChecker <- function(InputFile, group, hour, InforColumn=4, OutputF
     plot(p)
     dev.off() #close_fig
     plot.new()
+    
+    ###Pointplot_for_all_sample###
+    ###fig_name###
+    fig_name <- NULL
+    for(a in 1:sample_size){
+        if(a == 1){
+            fig_name <- paste(OutputFile,"_Point_",group[a],sep="")
+        }else{
+            fig_name <- paste(fig_name,"_",group[a],sep="")
+        }
+    }
+    fig_name <- paste(fig_name,".png",sep="")
+    fig_width <- 110*(time_points-1)*sample_size
+    png(filename=fig_name,width = fig_width, height = 1200)
+    
+    ###fig_plot###
+    merge_fig_percentile_data$name <- factor(merge_fig_percentile_data$name, levels=sort(unique(as.character(merge_fig_percentile_data$name))))
+    p <- ggplot()
+    p <- p + layer(data=merge_fig_percentile_data,
+                   mapping=aes(x=name, y=q, colour=factor(factor)),
+                   geom="point",
+                   size=5,
+                   shape=19)
+    p <- p + xlab("") + ylab("Relative RPKM (Time0 = 1)")
+    p <- p + ylim(-1.5,1.5)
+    plot(p)
+    dev.off() #close_fig
+    plot.new()
 }
+
 
 ###Test###
 setwd("C:/Users/Naoto/Documents/github/BRIC-seq_data_analysis/BridgeR/data/BridgeR_siStealth_siPUM2_ver1/time_course_0_1_2_4_8_12h")
-BridgeRDatasetChecker(InputFile="BridgeR_1_Relative_expression_data_siCTRL_siPUM2_compatible.txt", group=c("siCTRL","siPUM2"), hour=c(0,1,2,4,8,12))
+BridgeRDatasetCheckerBoxplot(InputFile="BridgeR_1_Relative_expression_data_siCTRL_siPUM2_compatible.txt", group=c("siCTRL","siPUM2"), hour=c(0,1,2,4,8,12))
