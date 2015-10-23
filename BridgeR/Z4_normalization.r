@@ -16,7 +16,7 @@ BridgeRNormalization <- function(filename, group, hour, InforColumn = 4, SelectN
     nf_99 <- NULL
     nf_95 <- NULL
     for(a in 1:group_number){
-        NormFactor_name <- paste(NormFactor,a,"_",group[a],".txt", sep="")
+        NormFactor_name <- paste(NormFactor,"_",group[a],".txt", sep="")
         normalization_factor <- fread(NormFactor_name, header=T)[,nf_st:nf_ed,with=F]
         if(is.null(nf_99) && is.null(nf_95)){
             nf_99 <- as.vector(as.matrix(normalization_factor[1,]))
@@ -38,10 +38,16 @@ BridgeRNormalization <- function(filename, group, hour, InforColumn = 4, SelectN
         if(!is.null(hour_label)){
             cat("\t", file=output_file, append=T)
         }
+        
         hour_label <- NULL
         for(x in hour){
-            hour_label <- append(hour_label, paste("T", x, "_", a, sep=""))
+            label <- x
+            if(x < 10){
+                label <- paste("0",x,sep="")
+            }
+            hour_label <- append(hour_label, paste("T", label, "_", a, sep=""))
         }
+        
         infor_st <- 1 + (a - 1)*(time_points + InforColumn)
         infor_ed <- (InforColumn)*a + (a - 1)*time_points
         infor <- colnames(input_file)[infor_st:infor_ed]
@@ -91,4 +97,4 @@ BridgeRNormalization <- function(filename, group, hour, InforColumn = 4, SelectN
 
 ###Test###
 setwd("C:/Users/Naoto/Documents/github/BRIC-seq_data_analysis/BridgeR/data/BridgeR_siStealth_siPUM2_ver1/time_course_0_1_2_4_8_12h")
-BridgeRNormalization(filename = "BridgeR_3Luc2_Normalized_expression_data_siStealth_siPUM1_compatible.txt", group=c("siStealth","siPUM1"), hour=hour, NormFactor = "BridgeR_2b_Normalizaion_factor_dataset", OutputFile = "BridgeR_3b_Normalized_expression_data_siStealth_siPUM1.txt")
+BridgeRNormalization(filename = "BridgeR_1_Relative_expression_data_siCTRL_siPUM2_compatible.txt", group=c("siCTRL","siPUM2"), hour=c(0,1,2,4,8,12), NormFactor = "BridgeR_3_Normalizaion_factor", OutputFile = "BridgeR_4_Normalized_expression_data_siCTRL_siPUM2.txt")
