@@ -3,11 +3,6 @@
 #ver: 1.0.0
 #Date: 2015-10-23
 
-#InputFile <- "BridgeR_1_Relative_expression_data_siCTRL_siPUM2_compatible.txt"
-#group <- c("siCTRL","siPUM2")
-#hour <- c(0,1,2,4,8,12)
-#OutputFile <- "test.txt"
-
 ###Check_BRIC-seq_dataset###
 test_q <- function(x,y){
     q_99 <- as.vector(quantile(x, prob=0.99, na.rm=T))
@@ -31,10 +26,6 @@ test_q <- function(x,y){
 }
 
 BridgeRDatasetChecker <- function(InputFile, group, hour, InforColumn=4, OutputFile="BridgeR_2_Relative_RPKM_distribution"){
-    ###Import_library###
-    library(data.table)
-    library(ggplot2)
-    
     ###Prepare_files###
     time_points <- length(hour)
     
@@ -213,8 +204,3 @@ BridgeRDatasetChecker <- function(InputFile, group, hour, InforColumn=4, OutputF
     dev.off() #close_fig
     plot.new()
 }
-
-
-###Test###
-#setwd("C:/Users/Naoto/Documents/github/BRIC-seq_data_analysis/BridgeR/data/BridgeR_siStealth_siPUM2_ver1/time_course_0_1_2_4_8_12h")
-#BridgeRDatasetChecker(InputFile="BridgeR_1_Relative_expression_data_siCTRL_siPUM2_compatible.txt", group=c("siCTRL","siPUM2"), hour=c(0,1,2,4,8,12))

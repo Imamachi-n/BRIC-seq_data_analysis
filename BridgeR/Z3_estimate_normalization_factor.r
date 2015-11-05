@@ -5,10 +5,6 @@
 
 ###Estimate_normalization_factor_function###
 BridgeRNormalizationFactors <- function(InputFile, group, hour, InforColumn = 4, YMin = -2, YMax = 2, MakeFig = T, figname = "BridgeR_3_Normalizaion_factor", nfname = "BridgeR_3_Normalizaion_factor"){
-    ###Import_library###
-    library(data.table)
-    library(ggplot2)
-
     ###Calc_normalization_factor###
     group_number <- length(group)
     time_points <- length(hour)
@@ -103,7 +99,3 @@ BridgeRNormalizationFactors <- function(InputFile, group, hour, InforColumn = 4,
         }
     }
 }
-
-###Test###
-#setwd("C:/Users/Naoto/Documents/github/BRIC-seq_data_analysis/BridgeR/data/BridgeR_siStealth_siPUM2_ver1/time_course_0_1_2_4_8_12h")
-#BridgeRNormalizationFactors(InputFile = "BridgeR_1_Relative_expression_data_siCTRL_siPUM2_compatible.txt",group=c("siCTRL","siPUM2"), hour=c(0,1,2,4,8,12), figname = "BridgeR_3_Normalizaion_factor", nfname = "BridgeR_3_Normalizaion_factor", MakeFig = F)

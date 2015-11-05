@@ -6,10 +6,6 @@
 ###Decay_rate_Infor_function###
 BridgeRHalfLifeComparison <- function(filename = "BridgeR_5_half-life_calculation.txt", group, hour, ComparisonFile, InforColumn = 4, LogScale=F, OutputFig = "BridgeR_6_Half-life_comparison"){
     #ComparisonFile: The length of vector must be 2 => c("Control","Knockdown")
-    ###Import_library###
-    library(data.table)
-    library(ggplot2)
-    
     ###Prepare_file_infor###
     time_points <- length(hour)
     group_number <- length(group)
@@ -92,10 +88,6 @@ BridgeRHalfLifeComparison <- function(filename = "BridgeR_5_half-life_calculatio
 }
 
 BridgeRHalfLifeDistribution <- function(filename = "BridgeR_4_half-life_calculation.txt", group, hour, ComparisonFile, InforColumn = 4, OutputFig = "BridgeR_5_Half-life_distribution"){
-    ###Import_library###
-    library(data.table)
-    library(ggplot2)
-    
     ###Prepare_file_infor###
     time_points <- length(hour)
     group_number <- length(group)
@@ -151,10 +143,6 @@ BridgeRHalfLifeDistribution <- function(filename = "BridgeR_4_half-life_calculat
 
 BridgeRHalfLifeDifferenceHist <- function(filename = "BridgeR_4_half-life_calculation.txt", group, hour, ComparisonFile, InforColumn = 4, BinwidthFig = 0.01, OutputFig = "BridgeR_5_Half-life_difference_Histgram"){
     #ComparisonFile: The length of vector must be 2 => c("Control","Knockdown")
-    ###Import_library###
-    library(data.table)
-    library(ggplot2)
-    
     ###Prepare_file_infor###
     time_points <- length(hour)
     group_number <- length(group)
@@ -200,10 +188,6 @@ BridgeRHalfLifeDifferenceHist <- function(filename = "BridgeR_4_half-life_calcul
 
 BridgeRHalfLifeDifferenceBox <- function(filename = "BridgeR_4_half-life_calculation.txt", group, hour, ComparisonFile, InforColumn = 4, OutputFig = "BridgeR_5_Half-life_difference_Boxplot"){
     #ComparisonFile: The length of vector must be 2 => c("Control","Knockdown")
-    ###Import_library###
-    library(data.table)
-    library(ggplot2)
-    
     ###Prepare_file_infor###
     time_points <- length(hour)
     group_number <- length(group)
@@ -251,11 +235,3 @@ BridgeRHalfLifeDifferenceBox <- function(filename = "BridgeR_4_half-life_calcula
     dev.off() #close_fig
     plot.new()
 }
-
-###Test###
-#setwd("C:/Users/Naoto/Documents/github/BRIC-seq_data_analysis/BridgeR/data/BridgeR_siStealth_siPUM2_ver1/time_course_0_1_2_4_8_12h")
-#BridgeRHalfLifeComparison(filename="BridgeR_5_half-life_calculation_siCTRL_siPUM2.txt", OutputFig = "BridgeR_5_Half-life_comparison_siCTRL_siPUM2", group= c("siCTRL","siPUM2"), hour=c(0,1,2,4,8,12), ComparisonFile=c("siCTRL","siPUM2"))
-#BridgeRHalfLifeDistribution(filename="BridgeR_5_half-life_calculation_siCTRL_siPUM2.txt", OutputFig = "BridgeR_5_Half-life_distribution_siCTRL_siPUM2", group= c("siCTRL","siPUM2"), hour=c(0,1,2,4,8,12), ComparisonFile=c("siCTRL","siPUM2"))
-#BridgeRHalfLifeDifferenceHist(filename="BridgeR_5_half-life_calculation_siCTRL_siPUM2.txt", OutputFig = "BridgeR_5_Half-life_difference_Histgram_siCTRL_siPUM2", group= c("siCTRL","siPUM2"), hour=c(0,1,2,4,8,12), ComparisonFile=c("siCTRL","siPUM2"))
-#BridgeRHalfLifeDifferenceHist(filename="BridgeR_5_half-life_calculation_siCTRL_siPUM2.txt", OutputFig = "BridgeR_5_Half-life_difference_Histgram_01_siCTRL_siPUM2", group= c("siCTRL","siPUM2"), hour=c(0,1,2,4,8,12), ComparisonFile=c("siCTRL","siPUM2"), BinwidthFig=0.1)
-#BridgeRHalfLifeDifferenceBox(filename="BridgeR_5_half-life_calculation_siCTRL_siPUM2.txt", OutputFig = "BridgeR_5_Half-life_difference_Boxplot_siCTRL_siPUM2", group= c("siCTRL","siPUM2"), hour=c(0,1,2,4,8,12), ComparisonFile=c("siCTRL","siPUM2"))

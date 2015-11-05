@@ -5,9 +5,6 @@
 
 ###Estimate_normalization_factor_function###
 BridgeRNormalizationForLuc2 <- function(filename, group, hour, InforColumn = 4, NormFactor = "BridgeR_3_Normalizaion_factor_dataset", OutputFile = "BridgeR_4_Normalized_expression_data.txt"){
-    ###Import_library###
-    library(data.table)
-    
     ###Load_NormFactor_file###
     group_number <- length(group)
     time_points <- length(hour)
@@ -81,7 +78,3 @@ BridgeRNormalizationForLuc2 <- function(filename, group, hour, InforColumn = 4, 
         cat("\n", sep="\t", file=output_file, append=T)
     }
 }
-
-###Test###
-#setwd("C:/Users/Naoto/Documents/github/BRIC-seq_data_analysis/BridgeR/data/BridgeR_siStealth_siPUM2_ver1/time_course_0_1_2_4_8_12h")
-#BridgeRNormalization(filename = "BridgeR_1_Relative_expression_data_siCTRL_siPUM2_compatible.txt", group=c("siCTRL","siPUM2"), hour=c(0,1,2,4,8,12), NormFactor = "BridgeR_3_Normalizaion_factor", OutputFile = "BridgeR_4_Normalized_expression_data_siCTRL_siPUM2.txt")

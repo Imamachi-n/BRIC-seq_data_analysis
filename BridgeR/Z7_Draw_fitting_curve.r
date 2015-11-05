@@ -4,11 +4,10 @@
 #Date: 2015-10-08
 
 ###Draw_fitting_curve_function###
-BridgeRDrawFittingCurve <- function(filename = "BridgeR_3_Normalized_expression_data.txt", group, hour, ComparisonFile, CutoffRelExp = 0.1, CutoffDataPoint = 3, InforColumn = 4, OutputDir = "BridgeR_fig", OutputFile = "BridgeR_4_half-life_p-value.txt"){
+BridgeRDrawFittingCurve <- function(filename, group, hour, ComparisonFile, CutoffRelExp = 0.1, CutoffDataPoint = 3, InforColumn = 4, OutputDir = "BridgeR_fig", OutputFile = "BridgeR_4_half-life_p-value.txt"){
     ###Import_library###
     library(data.table)
     library(ggplot2)
-    library(BSDA)
     
     ###Make_stored_directory###
     ComparisonFile_name = paste(ComparisonFile,collapse="_")
@@ -25,7 +24,7 @@ BridgeRDrawFittingCurve <- function(filename = "BridgeR_3_Normalized_expression_
     }
     output_file <- OutputFile
     
-    setwd(paste("C:/Users/Naoto/Documents/github/BRIC-seq_data_analysis/BridgeR/data","/",output_dir_name,sep=""))
+    setwd(output_dir_name)
     
     ###print_header###
     cat("",file=output_file)
@@ -228,7 +227,3 @@ BridgeRDrawFittingCurve <- function(filename = "BridgeR_3_Normalized_expression_
         plot.new()
     }
 }
-
-###Test###
-setwd("C:/Users/Naoto/Documents/github/BRIC-seq_data_analysis/BridgeR/data/BridgeR_siStealth_siPUM2_ver1/time_course_0_1_2_4_8_12h")
-BridgeRDrawFittingCurve(filename = "BridgeR_4_Normalized_expression_data_siCTRL_siPUM2.txt", group=c("siCTRL","siPUM2"), hour=c(0,1,2,4,8,12), ComparisonFile=c("siCTRL","siPUM2"), OutputDir="BridgeR_fig_PUM2KD")

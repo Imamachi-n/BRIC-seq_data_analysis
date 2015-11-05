@@ -5,9 +5,6 @@
 
 ###Calc_relative_expression_function###
 BridgeRDataSetFromCuffnorm <- function(CuffnormFiles, group, hour, cutoff = 0.1, InforColumn = 4, OutputFile = "BridgeR_1_Relative_expression_data.txt"){
-    ###Import_library###
-    library(data.table)
-    
     ###Prepare_files###
     time_points <- length(hour)
     input_file_numbers <- length(CuffnormFiles)

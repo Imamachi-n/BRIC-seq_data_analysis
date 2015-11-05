@@ -3,19 +3,8 @@
 #ver: 1.0.0
 #Date: 2015-10-07
 
-setwd("C:/Users/Naoto/Documents/github/BRIC-seq_data_analysis/BridgeR/data/BridgeR_siStealth_siPUM1_ver1/time_course_0_1_2_4_8_12h")
-
-InputFile <- "BridgeR_1_Relative_expression_data_cuffnorm_total_siStealth_siPUM1.txt"
-
-hour <- c(0,1,2,4,8,12)
-group <- c("A_siStealth","B_siPUM1")
-
-
 ###Estimate_normalization_factor_function###
 BridgeRNormalizationFactorsHK <- function(InputFile, group, hour, InforColumn = 4, InforHKGenes = 2, HKGenes = c("GAPDH","PGK1","PPIA","ENO1","ATP5B","ALDOA"), OutputFile = "BridgeR_3B_Normalizaion_factor_from_House_keeping_genes.txt"){
-    ###Import_library###
-    library(data.table)
-
     ###Calc_normalization_factor###
     group_number <- length(group)
     time_points <- length(hour)

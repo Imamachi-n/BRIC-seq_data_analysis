@@ -5,9 +5,6 @@
 
 ###Estimate_normalization_factor_function###
 BridgeRHalfLifeCalculation <- function(filename = "BridgeR_4_Normalized_expression_data.txt", group, hour, InforColumn = 4, CutoffRelExp = 0.1, CutoffDataPoint = 3, OutputFile = "BridgeR_5_half-life_calculation.txt"){
-    ###Import_library###
-    library(data.table)
-    
     ###Prepare_file_infor###
     time_points <- length(hour)
     group_number <- length(group)
@@ -84,8 +81,4 @@ BridgeRHalfLifeCalculation <- function(filename = "BridgeR_4_Normalized_expressi
         cat("\n", file=output_file, append=T)
     }
 }
-
-###Test###
-#setwd("C:/Users/Naoto/Documents/github/BRIC-seq_data_analysis/BridgeR/data/BridgeR_siStealth_siPUM2_ver1/time_course_0_1_2_4_8_12h")
-#BridgeRHalfLifeCalculation(filename="BridgeR_4_Normalized_expression_data_siCTRL_siPUM2.txt", group= c("siCTRL","siPUM2"), hour=c(0,1,2,4,8,12), OutputFile = "BridgeR_5_half-life_calculation_siCTRL_siPUM2.txt")
 
