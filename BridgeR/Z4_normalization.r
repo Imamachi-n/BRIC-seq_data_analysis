@@ -96,5 +96,5 @@ BridgeRNormalization <- function(filename, group, hour, InforColumn = 4, SelectN
 }
 
 ###Test###
-setwd("C:/Users/Naoto/Documents/github/BRIC-seq_data_analysis/BridgeR/data/BridgeR_siStealth_siPUM2_ver1/time_course_0_1_2_4_8_12h")
-BridgeRNormalization(filename = "BridgeR_1_Relative_expression_data_siCTRL_siPUM2_compatible.txt", group=c("siCTRL","siPUM2"), hour=c(0,1,2,4,8,12), NormFactor = "BridgeR_3_Normalizaion_factor", OutputFile = "BridgeR_4_Normalized_expression_data_siCTRL_siPUM2.txt")
+#setwd("C:/Users/Naoto/Documents/github/BRIC-seq_data_analysis/BridgeR/data/BridgeR_siStealth_siPUM2_ver1/time_course_0_1_2_4_8_12h")
+#BridgeRNormalization(filename = "BridgeR_1_Relative_expression_data_siCTRL_siPUM2_compatible.txt", group=c("siCTRL","siPUM2"), hour=c(0,1,2,4,8,12), NormFactor = "BridgeR_3_Normalizaion_factor", OutputFile = "BridgeR_4_Normalized_expression_data_siCTRL_siPUM2.txt")

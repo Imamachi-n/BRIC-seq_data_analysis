@@ -56,8 +56,8 @@ BridgeRHalfLifeComparison <- function(filename = "BridgeR_5_half-life_calculatio
     
     plot_data <- data.frame(half_1_fig,half_2_fig,factor_fig)
     print_out <- paste("Plotted: ",length(plot_data[,1])," genes", sep="")
-    print_out2 <- paste("At least 2-fold upregulated: ",up_genes," genes", sep="")
-    print_out3 <- paste("At least 2-fold downregulated: ",down_genes," genes", sep="")
+    print_out2 <- paste("At least 2-fold upregulated: ",down_genes," genes", sep="")
+    print_out3 <- paste("At least 2-fold downregulated: ",up_genes," genes", sep="")
     print(print_out)
     print(print_out2)
     print(print_out3)
@@ -69,6 +69,14 @@ BridgeRHalfLifeComparison <- function(filename = "BridgeR_5_half-life_calculatio
                                    #colour="black",
                                    size=2.5,
                                    alpha=0.3)
+    
+    p.scatter <- p.scatter + layer(data=plot_data, 
+                                   mapping=aes(x=half_1_fig, y=half_2_fig),
+                                   geom="smooth",
+                                   geom_params=list(color = "blue", size=1.2),
+                                   stat="smooth",
+                                   stat_params=list(method="lm", se=F))
+    
     p.scatter <- p.scatter + xlim(0,max(plot_data$half_1_fig)) + ylim(0,max(plot_data$half_2_fig))
     p.scatter <- p.scatter + ggtitle("Half-life comparison")
     name_xlab <- paste(group[comp_file_number[1]]," (Time)", sep="")
@@ -125,6 +133,8 @@ BridgeRHalfLifeDistribution <- function(filename = "BridgeR_4_half-life_calculat
                                    mapping=aes(x=half_life_data, colour=Sample), 
                                    geom="freqpoly",
                                    binwidth=0.1,
+                                   #geom="line",
+                                   #stat="density",
                                    size=1.2,
                                    alpha=0.5)
     p.scatter <- p.scatter + xlim(0,25)
@@ -174,6 +184,8 @@ BridgeRHalfLifeDifferenceHist <- function(filename = "BridgeR_4_half-life_calcul
                                    mapping=aes(x=div_half), 
                                    geom="freqpoly",
                                    binwidth=BinwidthFig,
+                                   #geom="line",
+                                   #stat="density",
                                    size=1.2)
     p.scatter <- p.scatter + xlim(min(plot_data$div_half),max(plot_data$div_half))
     p.scatter <- p.scatter + ggtitle("Half-life difference")
@@ -241,9 +253,9 @@ BridgeRHalfLifeDifferenceBox <- function(filename = "BridgeR_4_half-life_calcula
 }
 
 ###Test###
-setwd("C:/Users/Naoto/Documents/github/BRIC-seq_data_analysis/BridgeR/data/BridgeR_siStealth_siPUM2_ver1/time_course_0_1_2_4_8_12h")
-BridgeRHalfLifeComparison(filename="BridgeR_5_half-life_calculation_siCTRL_siPUM2.txt", OutputFig = "BridgeR_5_Half-life_comparison_siCTRL_siPUM2", group= c("siCTRL","siPUM2"), hour=c(0,1,2,4,8,12), ComparisonFile=c("siCTRL","siPUM2"))
-BridgeRHalfLifeDistribution(filename="BridgeR_5_half-life_calculation_siCTRL_siPUM2.txt", OutputFig = "BridgeR_5_Half-life_distribution_siCTRL_siPUM2", group= c("siCTRL","siPUM2"), hour=c(0,1,2,4,8,12), ComparisonFile=c("siCTRL","siPUM2"))
-BridgeRHalfLifeDifferenceHist(filename="BridgeR_5_half-life_calculation_siCTRL_siPUM2.txt", OutputFig = "BridgeR_5_Half-life_difference_Histgram_siCTRL_siPUM2", group= c("siCTRL","siPUM2"), hour=c(0,1,2,4,8,12), ComparisonFile=c("siCTRL","siPUM2"))
-BridgeRHalfLifeDifferenceHist(filename="BridgeR_5_half-life_calculation_siCTRL_siPUM2.txt", OutputFig = "BridgeR_5_Half-life_difference_Histgram_01_siCTRL_siPUM2", group= c("siCTRL","siPUM2"), hour=c(0,1,2,4,8,12), ComparisonFile=c("siCTRL","siPUM2"), BinwidthFig=0.1)
-BridgeRHalfLifeDifferenceBox(filename="BridgeR_5_half-life_calculation_siCTRL_siPUM2.txt", OutputFig = "BridgeR_5_Half-life_difference_Boxplot_siCTRL_siPUM2", group= c("siCTRL","siPUM2"), hour=c(0,1,2,4,8,12), ComparisonFile=c("siCTRL","siPUM2"))
+#setwd("C:/Users/Naoto/Documents/github/BRIC-seq_data_analysis/BridgeR/data/BridgeR_siStealth_siPUM2_ver1/time_course_0_1_2_4_8_12h")
+#BridgeRHalfLifeComparison(filename="BridgeR_5_half-life_calculation_siCTRL_siPUM2.txt", OutputFig = "BridgeR_5_Half-life_comparison_siCTRL_siPUM2", group= c("siCTRL","siPUM2"), hour=c(0,1,2,4,8,12), ComparisonFile=c("siCTRL","siPUM2"))
+#BridgeRHalfLifeDistribution(filename="BridgeR_5_half-life_calculation_siCTRL_siPUM2.txt", OutputFig = "BridgeR_5_Half-life_distribution_siCTRL_siPUM2", group= c("siCTRL","siPUM2"), hour=c(0,1,2,4,8,12), ComparisonFile=c("siCTRL","siPUM2"))
+#BridgeRHalfLifeDifferenceHist(filename="BridgeR_5_half-life_calculation_siCTRL_siPUM2.txt", OutputFig = "BridgeR_5_Half-life_difference_Histgram_siCTRL_siPUM2", group= c("siCTRL","siPUM2"), hour=c(0,1,2,4,8,12), ComparisonFile=c("siCTRL","siPUM2"))
+#BridgeRHalfLifeDifferenceHist(filename="BridgeR_5_half-life_calculation_siCTRL_siPUM2.txt", OutputFig = "BridgeR_5_Half-life_difference_Histgram_01_siCTRL_siPUM2", group= c("siCTRL","siPUM2"), hour=c(0,1,2,4,8,12), ComparisonFile=c("siCTRL","siPUM2"), BinwidthFig=0.1)
+#BridgeRHalfLifeDifferenceBox(filename="BridgeR_5_half-life_calculation_siCTRL_siPUM2.txt", OutputFig = "BridgeR_5_Half-life_difference_Boxplot_siCTRL_siPUM2", group= c("siCTRL","siPUM2"), hour=c(0,1,2,4,8,12), ComparisonFile=c("siCTRL","siPUM2"))
